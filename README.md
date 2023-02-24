@@ -1,32 +1,51 @@
 ## Docker
 ### Creating network
 ```
-docker network create py-pg
+docker network create back-front-db
 ```
-### Building Docker image
+### Backend
+#### Building Docker image in `backend/`
 ```
-docker build --rm -t py-pgsql .
+docker build --rm -t back .
 ```
-### Creating container to develop
+#### Creating container to develop in `/`
 ```
 docker run \
    --rm \
-   --network py-pg \
-   --hostname py \
+   --network back-front-db \
+   --hostname back \
    --name py \
    -v $PWD/backend:/home/app \
    -p 5000:5000 \
    -it \
-   py-pgsql sh
+   back sh
 ```
-
-### Creating Postgres container
+### Frontend
+#### Building Docker image in `frontend/`
+```
+docker build --rm -t front .
+```
+#### Creating container to develop in `/`
 ```
 docker run \
    --rm \
-   --network py-pg \
-   --hostname pg \
-   --name pg \
+   --network back-front-db \
+   --hostname front \
+   --name front \
+   -v $PWD/frontend:/home/app \
+   -p 3000:3000 \
+   -it \
+   front sh
+```
+
+### Database
+#### Creating Postgres container
+```
+docker run \
+   --rm \
+   --network back-front-db \
+   --hostname db \
+   --name db \
    -e POSTGRES_USER=pguser \
    -e POSTGRES_PASSWORD=asd123 \
    -v $PWD/database:/var/lib/postgresql/data \
