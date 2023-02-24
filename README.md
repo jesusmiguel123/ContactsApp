@@ -1,12 +1,13 @@
-## Creating network
+## Docker
+### Creating network
 ```
 docker network create py-pg
 ```
-## Building Docker image
+### Building Docker image
 ```
 docker build --rm -t py-pgsql .
 ```
-## Creating container to develop
+### Creating container to develop
 ```
 docker run \
    --rm \
@@ -19,7 +20,7 @@ docker run \
    py-pgsql sh
 ```
 
-## Creating Postgres container
+### Creating Postgres container
 ```
 docker run \
    --rm \
