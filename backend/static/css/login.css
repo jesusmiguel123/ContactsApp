@@ -1,0 +1,36 @@
+#enter {
+   cursor: pointer;
+   background-color: green;
+   border-color: lightgreen;
+   border-radius: 20px;
+   font-size: 16px;
+   width: 60px;
+   height: 30px;
+   color: #DDD;
+}
+
+.button-container {
+   margin: 10px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+}
+
+label {
+   margin: 5px;
+}
+
+input {
+   margin: 5px;
+   height: 24px;
+   border-radius: 10%;
+   padding: 2px;
+}
+
+.fields {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}

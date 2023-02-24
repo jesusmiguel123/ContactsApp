@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block title %}
+   {{ datos.title }}
+{% endblock %}
+{% block style %}
+   "{{ url_for('static', filename='css/login.css') }}"
+{% endblock %}
+{% block body %}
+   <h2>Autentiquese {{ datos.username }}</h2>
+   <div class="fields">
+      <label>
+         Username
+         <input
+            type='text'
+            placeholder='Username'
+            name='username'
+            value={{ datos.username }}
+            required/>
+      </label>
+      <label>
+         Password
+         <input
+            type='password'
+            placeholder='Password'
+            name='password'
+            required/>
+      </label>
+   </div>
+   <div class="button-container">
+      <button id="enter">Enter</button>
+   </div>
+   <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+{% endblock %}
