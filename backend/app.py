@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, url_for, redirect
+from flask import Flask, request, render_template, url_for, redirect, jsonify
 import json
 
 app = Flask(__name__)
@@ -38,15 +38,17 @@ def login_post():
 
 @app.get("/endpoint")
 def endpoint():
-   return {
+   respuesta = {
       "k1": "v1",
       "k2": "v2"
    }
+   return jsonify(respuesta)
 
 @app.get("/query_params") # Thi is a query param /query_params?a=1&b=2
 def query_params():
+   print(request.args["a"])
    ls = [f"{item[0]}: {item[1]}" for item in request.args.items()]
-   return  "<ul><li>" + "</li><li>".join(ls) + "</li></ul>"
+   return "<ul><li>" + "</li><li>".join(ls) + "</li></ul>"
 
 def error_page(error):
    return f"<h1>Page Not Found</h1>", 404
