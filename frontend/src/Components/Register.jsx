@@ -74,12 +74,33 @@ const Register = () => {
          setMessage(true);
          return;
       } else {
-         console.log(data);
+         sendData(data);
          setMessageRender(<div className='success'>{successIcon} Successfully sended!</div>);
          setMessage(true);
-      }/*else {
-         mandarDatos(datos);
-      }*/
+      }
+   };
+
+   const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
+   const sendData = async data => {
+      try {
+         const res = await fetch(`${REACT_APP_API_URL}/api/v1/register`, {
+            method: 'POST',
+            body: JSON.stringify(data)
+         });
+         if(res.status !== 200) {
+            if(res.status === 400) {
+               const response = await res.json();
+               setMessageRender(<div className='error'>{errorIcon} {response.body}</div>);
+               setMessage(true);
+            }
+            throw new Error(res.statusText);
+         }
+         const response = await res.json();
+         setMessageRender(<div className='exito'>{successIcon} {response.body}</div>);
+         setMessage(true);
+      } catch (error) {
+         console.error(error);
+      }
    };
 
    return (
