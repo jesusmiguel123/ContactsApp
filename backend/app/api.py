@@ -17,9 +17,16 @@ def login():
          return jsonify({
             "body": "Void fields"
          }), 400
-      print(data["username"].strip(), data["password"])
+      username = data["username"].strip()
+      password = data["password"].strip()
+      print(username, password)
+      user = User.query.filter(User.username == username, User.password == password).first()
+      if user == None:
+         return jsonify({
+            "body": "Username or password incorrect!"
+         }), 400
       return jsonify({
-         "body": "Error"
+         "body": "Login successfully!"
       }), 400
    except Exception as e:
       print(e)
@@ -60,15 +67,15 @@ def register():
             "body": "File type not supported!"
          }), 400
       file_bytes = file.read()
-      # with open(BASE_DIR / "static/img" / file.filename, "wb") as f:
-      #    f.write(file_bytes)
+      with open(BASE_DIR / "static/img" / file.filename, "wb") as f:
+         f.write(file_bytes)
       profile_image_url = f"static/img/{file.filename}"
       new_user = User(name, lastname, username, password, email, profile_image_url)
       db_session.add(new_user)
       db_session.commit()
       return jsonify({
          "body": "New User registered successfully!"
-      }), 400
+      })
    except Exception as e:
       print(e)
       return jsonify({

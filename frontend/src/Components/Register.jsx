@@ -100,7 +100,7 @@ const Register = () => {
             throw new Error(res.statusText);
          }
          const response = await res.json();
-         setMessageRender(<div className='exito'>{successIcon} {response.body}</div>);
+         setMessageRender(<div className='success'>{successIcon} {response.body}</div>);
          setMessage(true);
       } catch (error) {
          console.error(error);
