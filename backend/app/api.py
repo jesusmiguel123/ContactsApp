@@ -2,6 +2,8 @@ from flask import Blueprint, request, render_template, \
    url_for, redirect, jsonify
 import json
 from pathlib import Path
+from .db import db_session
+from .models import User
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -49,15 +51,23 @@ def register():
          return jsonify({
             "body": "Repassword is required!"
          }), 400
+      if len(password) < 8:
+         return jsonify({
+            "body": "Password lenght < 8!"
+         }), 400
       if file.filename.split(".")[-1] not in ["jpg", "jpeg", "png"]:
          return jsonify({
             "body": "File type not supported!"
          }), 400
       file_bytes = file.read()
-      with open(BASE_DIR / "static/img" / file.filename, "wb") as f:
-         f.write(file_bytes)
+      # with open(BASE_DIR / "static/img" / file.filename, "wb") as f:
+      #    f.write(file_bytes)
+      profile_image_url = f"static/img/{file.filename}"
+      new_user = User(name, lastname, username, password, email, profile_image_url)
+      db_session.add(new_user)
+      db_session.commit()
       return jsonify({
-         "body": "Error from file"
+         "body": "New User registered successfully!"
       }), 400
    except Exception as e:
       print(e)
