@@ -10,6 +10,10 @@ def create_app(test_config=None):
    def index():
       return "<h1>API for Web Application</h1>"
 
+   from . import db
+
+   db.init_app(app)
+
    from . import api
 
    app.register_blueprint(api.bp)

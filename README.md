@@ -48,6 +48,7 @@ docker run \
    --name db \
    -e POSTGRES_USER=pguser \
    -e POSTGRES_PASSWORD=asd123 \
+   -e POSTGRES_DB=app \
    -v $PWD/database:/var/lib/postgresql/data \
    -p 5432:5432 \
    postgres:15.2-alpine
