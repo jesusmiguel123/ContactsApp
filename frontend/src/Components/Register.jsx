@@ -83,9 +83,13 @@ const Register = () => {
    const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
    const sendData = async data => {
       try {
+         const dataToSend = new FormData();
+         for (const key in data){
+            dataToSend.append(key, data[key]);
+         }
          const res = await fetch(`${REACT_APP_API_URL}/api/v1/register`, {
             method: 'POST',
-            body: JSON.stringify(data)
+            body: dataToSend
          });
          if(res.status !== 200) {
             if(res.status === 400) {

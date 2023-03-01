@@ -14,7 +14,7 @@ docker run \
    --rm \
    --network back-front-db \
    --hostname back \
-   --name py \
+   --name back \
    -v $PWD/backend:/home/app \
    -p 5000:5000 \
    -it \
