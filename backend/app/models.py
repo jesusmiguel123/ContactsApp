@@ -21,7 +21,7 @@ class User(Base):
    name = Column(String(32), nullable=False)
    lastname = Column(String(40), nullable=False)
    username = Column(String(25), unique=True, nullable=False, primary_key=True)
-   password = Column(String(32), nullable=False)
+   password = Column(String(150), nullable=False)
    email = Column(String(40), unique=True, nullable=False)
    profile_image_url = Column(String(60), unique=True, nullable=False)
    contacts = relationship("Contact",

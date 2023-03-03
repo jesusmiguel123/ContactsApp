@@ -1,7 +1,19 @@
-from flask import Blueprint, request, render_template, \
-   url_for, redirect, jsonify
+from flask import Blueprint
+from flask import request
+from flask import render_template
+from flask import url_for
+from flask import redirect
+from flask import jsonify
+from flask import send_from_directory
+
+from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash
+from werkzeug.utils import secure_filename
+
 import json
+
 from pathlib import Path
+
 from .db import db_session
 from .models import User
 
@@ -19,9 +31,8 @@ def login():
          }), 400
       username = data["username"].strip()
       password = data["password"].strip()
-      print(username, password)
-      user = User.query.filter(User.username == username, User.password == password).first()
-      if user == None:
+      user = User.query.filter(User.username == username).first()
+      if user == None or not check_password_hash(user.password, password):
          return jsonify({
             "body": "Username or password incorrect!"
          }), 400
@@ -43,14 +54,17 @@ def register():
       password = request.form.get("password")
       repassword = request.form.get("repassword")
       email = request.form.get("email")
+      if "file" not in request.files:
+         return jsonify({
+            "body": "No file part"
+         }), 400
       file = request.files["file"]
       if not (name.strip() 
               and lastname.strip()
               and username.strip()
               and password.strip()
               and repassword.strip()
-              and email.strip()
-              and file):
+              and email.strip()):
          return jsonify({
             "body": "Void fields"
          }), 400
@@ -62,15 +76,28 @@ def register():
          return jsonify({
             "body": "Password lenght < 8!"
          }), 400
-      if file.filename.split(".")[-1] not in ["jpg", "jpeg", "png"]:
+      if (file.filename.rsplit(".", 1)[1].lower() not in {"jpg", "jpeg", "png"}
+          or "." not in file.filename):
          return jsonify({
             "body": "File type not supported!"
          }), 400
+      user = User.query.filter(User.username == username).first()
+      if user != None:
+         return jsonify({
+            "body": f"Username {username} already exists!"
+         }), 400
+      user = User.query.filter(User.email == email).first()
+      if user != None:
+         return jsonify({
+            "body": f"Email {email} already exists!"
+         }), 400
       file_bytes = file.read()
-      with open(BASE_DIR / "static/img" / file.filename, "wb") as f:
+      filename = secure_filename(file.filename)
+      with open(BASE_DIR / "static/img" / filename, "wb") as f:
          f.write(file_bytes)
       profile_image_url = f"static/img/{file.filename}"
-      new_user = User(name, lastname, username, password, email, profile_image_url)
+      password_hashed = generate_password_hash(password)
+      new_user = User(name, lastname, username, password_hashed, email, profile_image_url)
       db_session.add(new_user)
       db_session.commit()
       return jsonify({
