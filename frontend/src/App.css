@@ -61,15 +61,12 @@ header a {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0px 10px 0px 10px;
+  padding: 0px 12px 0px 12px;
 }
 
 header nav ul li a {
   margin: 0px 10px 0px 10px;
-}
-
-.logout {
-  margin: 0px 10px 0px 10px;
-  padding: 0px 12px 0px 12px;
 }
 
 header nav ul li a:hover, .logout:hover {
@@ -78,4 +75,26 @@ header nav ul li a:hover, .logout:hover {
 
 .logout {
   cursor: pointer;
+}
+
+@media (max-height: 600px) {
+  header h1 {
+    width: 40%;
+    line-height: 100%;
+  }
+
+  header nav {
+    width: 60%;
+  }
+
+  header a {
+    font-size: 12px;
+  }
+  
+  .logout {
+    width: 10%;
+    margin: 0px 0px 0px 10px;
+    padding: 0px 12px 0px 12px;
+    font-size: 12px;
+  }
 }

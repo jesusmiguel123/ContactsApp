@@ -107,3 +107,31 @@
    border-color: green;
    color: green;
 }
+
+@media (max-height: 600px) {
+   .register {
+      height: 90vh;
+      font-size: 16px;
+   }
+   
+   .fields-register input {
+      height: 25px;
+      font-size: 14px;
+   }
+   
+   .fields-register .error {
+      height: 12%;
+      width: 80%;
+      font-size: 14px;
+   }
+   
+   .fields-register .success {
+      height: 12%;
+      width: 80%;
+      font-size: 14px;
+   }
+   
+   #register {
+      font-size: 16px;
+   }
+}

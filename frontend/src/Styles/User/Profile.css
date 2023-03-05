@@ -8,7 +8,7 @@
 }
 
 .profile table {
-   padding: 30px;
+   padding: 10px;
 }
 
 .profile table th {
@@ -33,4 +33,24 @@
    width: 240px;
    height: 240px;
    border-radius: 100%;
+   border: 5px solid #787C74;;
+}
+
+@media (max-height: 600px) {
+   .profile {
+      font-size: 16px;
+   }
+
+   .profile table th {
+      padding: 8px;
+   }
+   
+   .profile table #field-name-profile {
+      padding: 24px;
+   }
+
+   .profile table tr td img {
+      width: 160px;
+      height: 160px;
+   }
 }

@@ -21,6 +21,78 @@ const Contacts = ({ user }) => {
                   <td>Asdfg</td>
                   <td className="email">Asdfg@asdfg.asdfg</td>
                </tr>
+               <tr>
+                  <td>Asd</td>
+                  <td className="email">Asd@asd.asd</td>
+               </tr>
+               <tr>
+                  <td>Asdfg</td>
+                  <td className="email">Asdfg@asdfg.asdfg</td>
+               </tr>
+               <tr>
+                  <td>Asd</td>
+                  <td className="email">Asd@asd.asd</td>
+               </tr>
+               <tr>
+                  <td>Asdfg</td>
+                  <td className="email">Asdfg@asdfg.asdfg</td>
+               </tr>
+               <tr>
+                  <td>Asd</td>
+                  <td className="email">Asd@asd.asd</td>
+               </tr>
+               <tr>
+                  <td>Asdfg</td>
+                  <td className="email">Asdfg@asdfg.asdfg</td>
+               </tr>
+               <tr>
+                  <td>Asd</td>
+                  <td className="email">Asd@asd.asd</td>
+               </tr>
+               <tr>
+                  <td>Asdfg</td>
+                  <td className="email">Asdfg@asdfg.asdfg</td>
+               </tr>
+               <tr>
+                  <td>Asd</td>
+                  <td className="email">Asd@asd.asd</td>
+               </tr>
+               <tr>
+                  <td>Asdfg</td>
+                  <td className="email">Asdfg@asdfg.asdfg</td>
+               </tr>
+               <tr>
+                  <td>Asd</td>
+                  <td className="email">Asd@asd.asd</td>
+               </tr>
+               <tr>
+                  <td>Asdfg</td>
+                  <td className="email">Asdfg@asdfg.asdfg</td>
+               </tr>
+               <tr>
+                  <td>Asd</td>
+                  <td className="email">Asd@asd.asd</td>
+               </tr>
+               <tr>
+                  <td>Asdfg</td>
+                  <td className="email">Asdfg@asdfg.asdfg</td>
+               </tr>
+               <tr>
+                  <td>Asd</td>
+                  <td className="email">Asd@asd.asd</td>
+               </tr>
+               <tr>
+                  <td>Asdfg</td>
+                  <td className="email">Asdfg@asdfg.asdfg</td>
+               </tr>
+               <tr>
+                  <td>Asd</td>
+                  <td className="email">Asd@asd.asd</td>
+               </tr>
+               <tr>
+                  <td>Asdfg</td>
+                  <td className="email">Asdfg@asdfg.asdfg</td>
+               </tr>
             </tbody>
          </table>
          <button className="add-contact">Add new contact</button>

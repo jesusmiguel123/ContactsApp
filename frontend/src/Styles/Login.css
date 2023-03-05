@@ -101,3 +101,29 @@
    align-items: center;
    justify-content: center;
 }
+
+@media (max-height: 600px) {
+   .login {
+      font-size: 20px;
+   }
+   
+   .content-login .error {
+      width: 90%;
+      font-size: 18px;
+   }
+   
+   .content-login .success {
+      width: 90%;
+      font-size: 18px;
+   }
+   
+   #login {
+      font-size: 20px;
+      width: 30%;
+   }
+   
+   .fields-login input {
+      padding: 8px;
+      font-size: 18px;
+   }
+}

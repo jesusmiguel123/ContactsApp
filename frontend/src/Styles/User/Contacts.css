@@ -13,6 +13,19 @@
 
 .contacts table {
    padding: 10px 0px 30px 0px;
+   width: 75%;
+}
+
+.contacts table tbody {
+   display: block;
+   max-height: 190px;
+   overflow-y: scroll;
+}
+
+.contacts table thead , .contacts table tbody tr {
+   display: table;
+   width: 100%;
+   table-layout: fixed;
 }
 
 .contacts table th {
@@ -38,7 +51,7 @@
 
 .contacts .add-contact {
    cursor: pointer;
-   width: 30%;
+   width: 20%;
    padding: 10px;
    background-color: green;
    border-color: green;
@@ -51,4 +64,28 @@
    background-color: #DDD;
    border-color: green;
    color: green;
+}
+
+@media (max-height: 600px) {
+   .contacts {
+      font-size: 16px;
+      padding: 20px 0px 0px 0px;
+   }
+   
+   .contacts h1 {
+      font-size: 24px;
+   }
+   
+   .contacts table {
+      width: 92%;
+   }
+
+   .contacts table tbody {
+      max-height: 220px;
+   }
+
+   .contacts .add-contact {
+      font-size: 18px;
+      width: 60%;
+   }
 }
