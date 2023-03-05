@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react';
+import useLocalStorage from './useLocalStorage';
 
 const AuthContext = createContext();
 
@@ -8,16 +9,17 @@ export const useAuth = () => {
 }
 
 export const AuthProvider = ({ children }) => {
+   const [, setUser, removeUser] = useLocalStorage("user");
    const [isAuth, setAuth] = useState(false);
 
    const login = async (username, password) => {
-      console.log(username, password);
       const response = await sendData({
          username: username,
          password: password
       })
       if(response[1] === 200){
          setAuth(true);
+         setUser(username);
       }
       return response;
    }
@@ -45,6 +47,7 @@ export const AuthProvider = ({ children }) => {
 
    const logout = () => {
       setAuth(false);
+      removeUser();
    }
 
    return (

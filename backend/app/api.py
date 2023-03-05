@@ -16,6 +16,7 @@ from pathlib import Path
 
 from .db import db_session
 from .models import User
+from .models import Profile
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -38,7 +39,7 @@ def login():
          }), 400
       return jsonify({
          "body": "Login successfully!"
-      }), 400
+      })
    except Exception as e:
       print(e)
       return jsonify({
@@ -86,8 +87,8 @@ def register():
          return jsonify({
             "body": f"Username {username} already exists!"
          }), 400
-      user = User.query.filter(User.email == email).first()
-      if user != None:
+      profile = Profile.query.filter(Profile.email == email).first()
+      if profile != None:
          return jsonify({
             "body": f"Email {email} already exists!"
          }), 400
@@ -97,12 +98,53 @@ def register():
          f.write(file_bytes)
       profile_image_url = f"static/img/{file.filename}"
       password_hashed = generate_password_hash(password)
-      new_user = User(name, lastname, username, password_hashed, email, profile_image_url)
+      new_user = User(username, password_hashed)
+      new_profile = Profile(name, lastname, username, email, profile_image_url)
       db_session.add(new_user)
+      db_session.commit()
+      db_session.add(new_profile)
       db_session.commit()
       return jsonify({
          "body": "New User registered successfully!"
       })
+   except Exception as e:
+      print(e)
+      return jsonify({
+         "body": "Server error"
+      }), 400
+
+@bp.get("/profile/<username>")
+def profile(username):
+   try:
+      profile = Profile.query.filter(Profile.username == username).first()
+      if profile == None:
+         return jsonify({
+            "body": f"Profile not found"
+         }), 400
+      data = {
+         "name": profile.name,
+         "lastname": profile.lastname,
+         "email": profile.email
+      }
+      return jsonify({
+         "body": data
+      })
+   except Exception as e:
+      print(e)
+      return jsonify({
+         "body": "Server error"
+      }), 400
+
+@bp.get("/profile/photo/<username>")
+def profile_photo(username):
+   try:
+      profile = Profile.query.filter(Profile.username == username).first()
+      if profile == None:
+         return jsonify({
+            "body": f"Profile not found"
+         }), 400
+      filename = profile.profile_image_url.split("/")[-1]
+      return send_from_directory(BASE_DIR / "static/img", filename)
    except Exception as e:
       print(e)
       return jsonify({

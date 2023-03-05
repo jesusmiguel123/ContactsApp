@@ -47,7 +47,7 @@ const Login = ({ setUser }) => {
          setMessageRender(<div className='success'>{successIcon} {response}</div>);
          setMessage(true);
          setUser(username);
-         navigate(`/${username}`);
+         navigate("/user");
       }
    };
 

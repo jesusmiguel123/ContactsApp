@@ -1,0 +1,54 @@
+.contacts {
+   height: 80vh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   font-size: 30px;
+}
+
+.contacts h1 {
+   font-size: 40px;
+}
+
+.contacts table {
+   padding: 10px 0px 30px 0px;
+}
+
+.contacts table th {
+   border-bottom: 1px solid #DDD;
+}
+
+.contacts table th {
+   font-weight: 600;
+   padding: 10px 45px 10px 45px;
+}
+
+.contacts table thead #left {
+   text-align: left;
+}
+
+.contacts table thead #center {
+   text-align: center;
+}
+
+.contacts table tbody .email {
+   text-align: center;
+}
+
+.contacts .add-contact {
+   cursor: pointer;
+   width: 30%;
+   padding: 10px;
+   background-color: green;
+   border-color: green;
+   border-radius: 20px;
+   font-size: 28px;
+   color: #DDD;
+}
+
+.contacts .add-contact:hover {
+   background-color: #DDD;
+   border-color: green;
+   color: green;
+}

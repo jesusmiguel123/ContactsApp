@@ -2,20 +2,23 @@ import './App.css';
 
 //import { Route, Routes, Link, Navigate, useNavigate } from 'react-router-dom';
 import { Route, Routes, Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 import Home from './Components/Home';
 import Login from './Components/Login';
 import Register from './Components/Register';
 
 import Profile from './Components/User/Profile';
+import Contacts from './Components/User/Contacts';
 
 import { useAuth } from './utils/useAuth';
-import { useState } from 'react';
+import useLocalStorage from './utils/useLocalStorage';
 
 const App = () => {
-  const [user, setUser] = useState(null);
+  const [getUser, , ] = useLocalStorage("user");
 
-  const { isAuth } = useAuth();
+  const [user, setUser] = useState(getUser() || null);
+  
   /*
   const ProtectedRoute = ({ children }) => {
     const { isAuth } = useAuth();
@@ -40,9 +43,9 @@ const App = () => {
         <h1><Link to="/">Reservation Web</Link></h1>
         <nav>
           <ul>
-              { isAuth ?
-                <><li><Link to={`/${user}`}>Home</Link></li>
-                  <li><Link to={`/${user}/my-groups`}>My Groups</Link></li>
+              { user ?
+                <><li><Link to={"/user"}>Home</Link></li>
+                  <li><Link to={"/user/my-contacts"}>My Contacts</Link></li>
                   <li onClick={logouthandler} className="logout">Logout</li></>
               :
                 <><li><Link to="/">Home</Link></li>
@@ -53,12 +56,11 @@ const App = () => {
         </nav>
       </header>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/login' element={<Login setUser={setUser} />} />
-        <Route path={`/${user}`} element={<Profile user={user} />}>
-          <Route path='my-groups' element={<><div>My groups</div></>} />
-        </Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login setUser={setUser} />} />
+          <Route path="/user" element={<Profile user={user} />} />
+          <Route path="/user/my-contacts" element={<Contacts user={user} />} />
       </Routes>
     </>
   );

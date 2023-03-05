@@ -1,0 +1,36 @@
+.profile {
+   height: 80vh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   font-size: 28px;
+}
+
+.profile table {
+   padding: 30px;
+}
+
+.profile table th {
+   font-weight: 600;
+   text-align: right;
+   padding: 15px;
+}
+
+.profile table #field-name-profile {
+   padding: 40px;
+}
+
+.profile .row1 th {
+   text-align: right;
+}
+
+.profile .row1 td {
+   text-align: center;
+}
+
+.profile table tr td img {
+   width: 240px;
+   height: 240px;
+   border-radius: 100%;
+}

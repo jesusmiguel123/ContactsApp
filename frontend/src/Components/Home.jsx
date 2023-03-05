@@ -1,6 +1,11 @@
+import '../Styles/Home.css';
+
 const Home = () => {
    return (
-      <div>Home</div>
+      <div className="home">
+         <h1>Welcome to Reservation Web</h1>
+         <p>This web offers you a way to connect with other users</p>
+      </div>
    );
 }
  
