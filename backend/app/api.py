@@ -150,3 +150,25 @@ def profile_photo(username):
       return jsonify({
          "body": "Server error"
       }), 400
+
+@bp.get("/profiles")
+def profiles():
+   try:
+      profiles = Profile.query.with_entities(Profile.username).all()
+      if profiles == None:
+         return jsonify({
+            "body": f"Any profile found"
+         }), 400
+      data = []
+      for profile in profiles:
+         data.append({
+            "username": profile[0]
+         })
+      return jsonify({
+         "usernames": data
+      })
+   except Exception as e:
+      print(e)
+      return jsonify({
+         "body": "Server error"
+      }), 400
