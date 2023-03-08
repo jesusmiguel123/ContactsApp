@@ -1,0 +1,111 @@
+.search-contact {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.search-contact form {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.search-contact form input {
+   font-size: 24px;
+   padding: 5px;
+   border-radius: 15px 0px 0px 15px;
+}
+
+.search-contact form label {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   border-radius: 15px;
+   border: 2px solid #787C74;
+}
+
+.search-contact form label button {
+   display: block;
+   background-color: inherit;
+   cursor: pointer;
+   padding: 7px;
+   border: none;
+   border-left: 2px solid #787C74;
+}
+
+.search-contact form label button .icon {
+   color: #787C74;
+}
+
+.search-contact .select-contacts {
+   width: 55%;
+}
+
+.search-contact .select-contacts ul{
+   list-style-type: none;
+   max-height: 90px;
+   overflow-y: scroll;
+}
+
+.search-contact .select-contacts ul li {
+   border: 1px solid #787C74;
+   margin-top: -1px;
+   padding: 10px;
+   display: block;
+   background-color: #484c54;
+   cursor: pointer;
+   font-size: 20px;
+}
+
+.search-contact .select-contacts ul li:hover {
+   background-color: #787C74;
+}
+
+.search-contact .list-contacts {
+   width: 90%;
+   border: 4px solid #888C84;
+   margin-top: 30px;
+   padding: 1px;
+}
+
+.search-contact .list-contacts ul {
+   list-style-type: none;
+   max-height: 205px;
+   overflow-y: scroll;
+}
+
+.search-contact .list-contacts ul li {
+   display: flex;
+   align-items: center;
+   border: 1px solid #282c34;
+   padding: 10px;
+   background-color: #787C74;
+   font-size: 26px;
+}
+
+.search-contact .list-contacts ul li:hover {
+   border: 1px solid #787C74;
+   background-color: #282c34;
+}
+
+.search-contact .list-contacts ul li div {
+   flex: 3;
+}
+
+.search-contact .list-contacts ul li button {
+   flex: 1;
+   cursor: pointer;
+   background-color: green;
+   border-color: green;
+   color: #DDD;
+   font-size: 26px;
+   border-radius: 20px;
+   padding: 7px;
+}
+
+.search-contact .list-contacts ul li button:hover {
+   background-color: #DDD;
+   border-color: green;
+   color: green;
+}

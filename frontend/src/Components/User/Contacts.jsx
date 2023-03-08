@@ -48,7 +48,7 @@ const Contacts = ({ user }) => {
             </thead>
             <tbody>
                {contacts.map(contact => (
-                  <tr>
+                  <tr key={contact}>
                      <td>{contact.name}</td>
                      <td className="email">{contact.email}</td>
                   </tr>
