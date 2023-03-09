@@ -17,23 +17,27 @@ const Contacts = ({ user }) => {
 
    const loadContacts = async (user) => {
       try {
-         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/contacts/${user}`);
+         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/get-contacts/${user}`);
          if(!res.ok) {
-            console.log(res);
+            if(res.status === 400) {
+               const response = await res.json();
+               console.log(response.body);
+            }
+            throw new Error(res.statusText);
          }
          const contacts = await res.json();
-         setContacts(contacts.body);
+         setContacts(contacts["contacts"]);
       } catch (error) {
          console.log(error);
       }
    };
 
-   const [showModal, setShowModal] = useState(false);
+   const [showModalAddUser, setShowModalAddUser] = useState(false);
    const addContact = () => {
-      setShowModal(true);
+      setShowModalAddUser(true);
     };
    const closeModal = () => {
-      setShowModal(false);
+      setShowModalAddUser(false);
    };
 
    return (
@@ -48,7 +52,7 @@ const Contacts = ({ user }) => {
             </thead>
             <tbody>
                {contacts.map(contact => (
-                  <tr key={contact}>
+                  <tr key={contact.name+contact.email}>
                      <td>{contact.name}</td>
                      <td className="email">{contact.email}</td>
                   </tr>
@@ -56,8 +60,8 @@ const Contacts = ({ user }) => {
             </tbody>
          </table>
          <button className="add-contact" onClick={addContact}>Add new contact</button>
-         {showModal
-           && <Modal closeModal={closeModal} title="Add new contact"><AddContact /></Modal>}
+         {showModalAddUser
+           && <Modal closeModal={closeModal} title="Add new contact"><AddContact user={user} /></Modal>}
       </div>
    );
 }

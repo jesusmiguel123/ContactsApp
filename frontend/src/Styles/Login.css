@@ -45,7 +45,7 @@
 
 .content-login .error .icon, .content-login .success .icon {
    width: 10%;
-   vertical-align: bottom;
+   vertical-align: middle;
    padding: 0px 7px 0px 7px;
 }
 

@@ -17,6 +17,7 @@ from pathlib import Path
 from .db import db_session
 from .models import User
 from .models import Profile
+from .models import Contact
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -151,21 +152,98 @@ def profile_photo(username):
          "body": "Server error"
       }), 400
 
-@bp.get("/profiles")
-def profiles():
+@bp.get("/profiles/<username>")
+def profiles(username):
    try:
+      profile_user = Profile.query.filter(Profile.username == username).first()
+      if profile_user == None:
+         return jsonify({
+            "body": f"Profile not found"
+         }), 400
       profiles = Profile.query.with_entities(Profile.username).all()
       if profiles == None:
          return jsonify({
             "body": f"Any profile found"
          }), 400
       data = []
+      list_contacts = []
+      contacts = Contact.query.filter(Contact.username == username).with_entities(Contact.contact_username).all()
+      if contacts != None:
+         list_contacts = [contact[0] for contact in contacts]
+      list_contacts = list_contacts + [username]
       for profile in profiles:
-         data.append({
-            "username": profile[0]
-         })
+         if profile[0] not in list_contacts:
+            data.append({
+               "username": profile[0]
+            })
+      if len(data) == 0:
+         return jsonify({
+            "body": "No users to connect found!"
+         }), 400
       return jsonify({
          "usernames": data
+      })
+   except Exception as e:
+      print(e)
+      return jsonify({
+         "body": "Server error"
+      }), 400
+
+@bp.get("/get-contacts/<username>")
+def get_contacts(username):
+   try:
+      profile_user = Profile.query.filter(Profile.username == username).first()
+      if profile_user == None:
+         return jsonify({
+            "body": f"User profile not found"
+         }), 400
+      list_contacts = []
+      contacts = Contact.query.filter(Contact.username == username).with_entities(Contact.contact_username).all()
+      if contacts != None:
+         list_contacts = [contact[0] for contact in contacts]
+      if len(list_contacts) == 0:
+         return jsonify({
+            "body": "No contacts found!"
+         }), 400
+      data = []
+      for contact in list_contacts:
+         profile_contact = Profile.query.filter(Profile.username == contact).first()
+         data.append({
+            "name": profile_contact.username,
+            "email": profile_contact.email
+         })
+      return jsonify({
+         "contacts": data
+      })
+   except Exception as e:
+      print(e)
+      return jsonify({
+         "body": "Server error"
+      }), 400
+
+@bp.post("/add-contact/<username>")
+def add_contact(username):
+   try:
+      contact = request.form.get("contact")
+      if not contact.strip():
+         return jsonify({
+            "body": f"Contact username is empty"
+         }), 400
+      profile_user = Profile.query.filter(Profile.username == username).first()
+      if profile_user == None:
+         return jsonify({
+            "body": f"User profile not found"
+         }), 400
+      profile_contact = Profile.query.filter(Profile.username == contact).first()
+      if profile_contact == None:
+         return jsonify({
+            "body": f"Contact profile not found"
+         }), 400
+      new_contact = Contact(profile_user.username, profile_contact.username)
+      db_session.add(new_contact)
+      db_session.commit()
+      return jsonify({
+         "body": "Successfully added!"
       })
    except Exception as e:
       print(e)
