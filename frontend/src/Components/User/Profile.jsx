@@ -1,10 +1,7 @@
-//import { useParams, Outlet } from 'react-router-dom';
 import '../../Styles/User/Profile.css';
 import { useEffect, useState } from 'react';
 
 const Profile = ({ user }) => {
-   //const { username } = useParams();
-   //<Outlet />
    const [data, setData] = useState({});
    const [photo, setPhoto] = useState();
 

@@ -97,8 +97,7 @@ const AddContact = ({ user }) => {
    };
 
    const ListContacts = ({ filteredContacts }) => filteredContacts.map(contact => (
-      <li
-         key={contact.username}>
+      <li key={contact.username}>
          <div>{contact.username}</div>
          <button onClick={() => clickAddButton(contact.username)}>Add</button>
       </li>

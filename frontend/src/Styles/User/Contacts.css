@@ -23,7 +23,7 @@
    overflow-x: hidden;
 }
 
-.contacts table thead , .contacts table tbody tr {
+.contacts table thead, .contacts table tbody tr {
    display: table;
    width: 100%;
    table-layout: fixed;

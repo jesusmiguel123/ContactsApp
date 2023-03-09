@@ -10,6 +10,7 @@ import Register from './Components/Register';
 
 import Profile from './Components/User/Profile';
 import Contacts from './Components/User/Contacts';
+import Contact from './Components/User/Contact';
 
 import { useAuth } from './utils/useAuth';
 import useLocalStorage from './utils/useLocalStorage';
@@ -60,7 +61,9 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/user" element={<Profile user={user} />} />
-          <Route path="/user/my-contacts" element={<Contacts user={user} />} />
+          <Route path="/user/my-contacts" element={<Contacts user={user} />}>
+            <Route path="contact/:username" element={<Contact />} />
+          </Route>
       </Routes>
     </>
   );

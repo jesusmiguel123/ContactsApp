@@ -1,5 +1,6 @@
 import '../../Styles/User/Contacts.css';
 import { useEffect, useState } from 'react';
+import { useNavigate, Outlet } from 'react-router-dom';
 
 import Modal from './Modal';
 import AddContact from './AddContact';
@@ -32,12 +33,24 @@ const Contacts = ({ user }) => {
       }
    };
 
-   const [showModalAddUser, setShowModalAddUser] = useState(false);
+   const [showModalAddContact, setShowModalAddContact] = useState(false);
    const addContact = () => {
-      setShowModalAddUser(true);
+      setShowModalAddContact(true);
     };
-   const closeModal = () => {
-      setShowModalAddUser(false);
+   const closeModalAddContact = () => {
+      setShowModalAddContact(false);
+   };
+
+   const navigate = useNavigate();
+   const [showModalContact, setShowModalContact] = useState(false);
+   const [contact, setContact] = useState(false);
+   const seeContact = name => {
+      setContact(name);
+      setShowModalContact(true);
+      navigate(`contact/${name}`);
+    };
+   const closeModalContact = () => {
+      setShowModalContact(false);
    };
 
    return (
@@ -52,7 +65,9 @@ const Contacts = ({ user }) => {
             </thead>
             <tbody>
                {contacts.map(contact => (
-                  <tr key={contact.name+contact.email}>
+                  <tr
+                     key={contact.name+contact.email}
+                     onClick={() => seeContact(contact.name)}>
                      <td>{contact.name}</td>
                      <td className="email">{contact.email}</td>
                   </tr>
@@ -60,8 +75,14 @@ const Contacts = ({ user }) => {
             </tbody>
          </table>
          <button className="add-contact" onClick={addContact}>Add new contact</button>
-         {showModalAddUser
-           && <Modal closeModal={closeModal} title="Add new contact"><AddContact user={user} /></Modal>}
+         {showModalAddContact
+            && <Modal closeModal={closeModalAddContact} title="Add new contact">
+                  <AddContact user={user} />
+               </Modal>}
+         {showModalContact
+            && <Modal closeModal={closeModalContact} title={contact}>
+                  <Outlet />
+               </Modal>}
       </div>
    );
 }
