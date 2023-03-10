@@ -1,5 +1,5 @@
 .profile {
-   height: 80vh;
+   height: 90vh;
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -55,13 +55,27 @@
    padding: 15px;
 }
 
-.profile .data svg {
-   cursor: pointer;
+.profile .edit {
    padding-left: 7px;
 }
 
-.profile .data svg:hover {
-   color: #7D78FF;
+.profile button {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   padding: 10px;
+   background-color: green;
+   border-color: green;
+   border-radius: 20px;
+   font-size: 28px;
+   color: #DDD;
+}
+
+.profile button:hover {
+   background-color: #DDD;
+   border-color: green;
+   color: green;
 }
 
 @media (max-height: 600px) {
@@ -71,6 +85,7 @@
    
    .profile .data {
       padding: 5px;
+      font-size: 18px;
    }
 
    .profile .data .data-image {
@@ -98,7 +113,12 @@
       padding: 15px 5px 15px 5px;
    }
 
-   .profile .data svg {
-      width: 14px;
+   .profile .edit {
+      width: 18px;
    }
+
+   .profile button {
+      font-size: 18px;
+   }
+   
 }
