@@ -61,7 +61,7 @@ const EditProfile = ({ user }) => {
                   accept=".jpg, .png, .jpeg"
                   required/>
             </div>
-            <button>Save</button>
+            <button className="send-button">Save</button>
          </form>
       </div>
    );

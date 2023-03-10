@@ -67,7 +67,7 @@ const Profile = ({ user }) => {
                </div>
             </div>
          </div>
-         <button onClick={editProfile}>Edit {editIcon}</button>
+         <button className="edit-profile-button" onClick={editProfile}>Edit {editIcon}</button>
          {showModalEditProfile
             && <Modal closeModal={closeModalEditProfile} title="Edit profile">
                   <EditProfile user={user} />

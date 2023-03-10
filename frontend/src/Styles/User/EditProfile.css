@@ -70,3 +70,19 @@
 .edit-profile form .photo input {
    padding-bottom: 10px;
 }
+
+.edit-profile form .send-button {
+   cursor: pointer;
+   padding: 10px;
+   background-color: green;
+   border-color: green;
+   border-radius: 20px;
+   font-size: 28px;
+   color: #DDD;
+}
+
+.edit-profile form .send-button:hover {
+   background-color: #DDD;
+   border-color: green;
+   color: green;
+}

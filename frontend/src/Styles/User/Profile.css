@@ -59,7 +59,7 @@
    padding-left: 7px;
 }
 
-.profile button {
+.profile .edit-profile-button {
    display: flex;
    align-items: center;
    justify-content: center;
@@ -72,7 +72,7 @@
    color: #DDD;
 }
 
-.profile button:hover {
+.profile .edit-profile-button:hover {
    background-color: #DDD;
    border-color: green;
    color: green;
@@ -117,7 +117,7 @@
       width: 18px;
    }
 
-   .profile button {
+   .profile .edit-profile-button {
       font-size: 18px;
    }
    
