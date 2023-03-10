@@ -7,50 +7,98 @@
    font-size: 28px;
 }
 
-.profile table {
-   padding: 10px;
-}
-
-.profile table th {
-   font-weight: 600;
-   text-align: right;
+.profile .data {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
    padding: 15px;
 }
 
-.profile table #field-name-profile {
-   padding: 40px;
+.profile .data .data-image {
+   padding: 10px;
 }
 
-.profile .row1 th {
-   text-align: right;
-}
-
-.profile .row1 td {
-   text-align: center;
-}
-
-.profile table tr td img {
+.profile .data .data-image img {
    width: 240px;
    height: 240px;
    border-radius: 100%;
-   border: 5px solid #787C74;;
+   border: 5px solid #787C74;
+}
+
+.profile .data .data-fields {
+   padding: 20px;
+}
+
+.profile .data .data-fields .name-lastname {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.profile .data .data-fields .name-lastname div {
+   padding: 0px 10px 0px 10px;
+}
+
+.profile .data .data-fields div p {
+   padding: 0px 8px 0px 8px;
+   font-weight: 800;
+}
+
+.profile .data .data-fields div {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.profile .data .data-fields .name-lastname, .profile .data .data-fields .email {
+   padding: 15px;
+}
+
+.profile .data svg {
+   cursor: pointer;
+   padding-left: 7px;
+}
+
+.profile .data svg:hover {
+   color: #7D78FF;
 }
 
 @media (max-height: 600px) {
    .profile {
       font-size: 16px;
    }
-
-   .profile table th {
-      padding: 8px;
-   }
    
-   .profile table #field-name-profile {
-      padding: 24px;
+   .profile .data {
+      padding: 5px;
    }
 
-   .profile table tr td img {
+   .profile .data .data-image {
+      padding: 4px;
+   }
+
+   .profile .data .data-image img {
       width: 160px;
       height: 160px;
+   }
+
+   .profile .data .data-fields {
+      padding: 4px;
+   }
+
+   .profile .data .data-fields .name-lastname div {
+      padding: 0px 2px 0px 2px;
+   }
+
+   .profile .data .data-fields div p {
+      padding: 0px 4px 0px 4px;
+   }
+
+   .profile .data .data-fields .name-lastname, .profile .data .data-fields .email {
+      padding: 15px 5px 15px 5px;
+   }
+
+   .profile .data svg {
+      width: 14px;
    }
 }
