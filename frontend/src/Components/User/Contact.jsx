@@ -45,10 +45,10 @@ const Contact = () => {
          <div className="image"><img src={photo} alt={username}/></div>
          <div className="data">
             <div>
-               <p><div>Name:</div> {data.name}</p>
-               <p><div>Lastname:</div> {data.lastname}</p>
+               <div><p>Name:</p> {data.name}</div>
+               <div><p>Lastname:</p> {data.lastname}</div>
             </div>
-            <p><div>Email:</div> {data.email}</p>
+            <div><p>Email:</p> {data.email}</div>
          </div>
       </div>
    );

@@ -26,17 +26,17 @@
    align-items: center;
    justify-content: center;
    padding: 10px;
-   margin: 30px;
+   margin: 10px;
 }
 
-.contact .data p {
+.contact .data div {
    display: flex;
    align-items: center;
    justify-content: center;
 }
 
-.contact .data p div {
-   padding: 0px 8px 0px 8px;
+.contact .data div p {
+   padding: 0px 4px 0px 4px;
    font-weight: 800;
 }
 
