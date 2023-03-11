@@ -1,5 +1,6 @@
 import '../../Styles/User/AddContact.css';
 import { useEffect, useState } from 'react';
+import getCSRFToken from '../../utils/getCSRFToken';
 
 const AddContact = ({ user }) => {
    const [searchContact, setSearchContact] = useState("");
@@ -67,10 +68,15 @@ const AddContact = ({ user }) => {
 
    const clickAddButton = async username => {
       try {
+         const CSRFToken = await getCSRFToken();
          const dataToSend = new FormData();
          dataToSend.append("contact", username);
          const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/add-contact/${user}`, {
             method: 'POST',
+            headers: {
+               'X-CSRFToken': CSRFToken
+            },
+            credentials: 'include',
             body: dataToSend
          });
          if(res.status !== 200) {

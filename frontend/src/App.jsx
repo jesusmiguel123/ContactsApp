@@ -2,7 +2,7 @@ import './App.css';
 
 //import { Route, Routes, Link, Navigate, useNavigate } from 'react-router-dom';
 import { Route, Routes, Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Home from './Components/Home';
 import Login from './Components/Login';
@@ -14,12 +14,20 @@ import Contact from './Components/User/Contact';
 
 import { useAuth } from './utils/useAuth';
 import useLocalStorage from './utils/useLocalStorage';
+import getCSRFToken from './utils/getCSRFToken';
 
 const App = () => {
   const [getUser, , ] = useLocalStorage("user");
 
   const [user, setUser] = useState(getUser() || null);
   
+  useEffect(() => {
+    const get_token = async () => {
+      await getCSRFToken();
+    }
+    get_token();
+  }, []);
+
   /*
   const ProtectedRoute = ({ children }) => {
     const { isAuth } = useAuth();

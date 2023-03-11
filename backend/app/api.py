@@ -6,13 +6,19 @@ from flask import redirect
 from flask import jsonify
 from flask import send_from_directory
 
+from flask_wtf.csrf import generate_csrf
+
+from flask_login import login_user
+from flask_login import login_required
+from flask_login import current_user
+
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 from werkzeug.utils import secure_filename
 
 import json
-
 from pathlib import Path
+from functools import wraps
 
 from .db import db_session
 from .models import User
@@ -22,6 +28,26 @@ from .models import Contact
 BASE_DIR = Path(__file__).resolve().parent
 
 bp = Blueprint("api", __name__, url_prefix="/api/v1")
+
+def check_user(view):
+   @wraps(view)
+   def new_view(*args, **kwargs):
+      if current_user.username != kwargs["username"]:
+         return jsonify({
+            "body": "You must be authenticated!"
+         }), 401
+      return view(*args, **kwargs)
+   return new_view
+
+@bp.get("/get_csrf_token")
+def get_csrf_token():
+   token = generate_csrf()
+   response = jsonify({
+      "body": "CSRF Cookie Set"
+   })
+   response.headers.set("X-CSRFToken", token)
+   response.set_cookie("csrftoken", token, secure=True, httponly=True, samesite="None")
+   return response
 
 @bp.post("/login")
 def login():
@@ -38,6 +64,7 @@ def login():
          return jsonify({
             "body": "Username or password incorrect!"
          }), 400
+      login_user(user)
       return jsonify({
          "body": "Login successfully!"
       })
@@ -153,6 +180,8 @@ def profile_photo(username):
       }), 400
 
 @bp.get("/profiles/<username>")
+@login_required
+@check_user
 def profiles(username):
    try:
       profile_user = Profile.query.filter(Profile.username == username).first()
@@ -190,6 +219,8 @@ def profiles(username):
       }), 400
 
 @bp.get("/get-contacts/<username>")
+@login_required
+@check_user
 def get_contacts(username):
    try:
       profile_user = Profile.query.filter(Profile.username == username).first()
@@ -222,6 +253,8 @@ def get_contacts(username):
       }), 400
 
 @bp.post("/add-contact/<username>")
+@login_required
+@check_user
 def add_contact(username):
    try:
       contact = request.form.get("contact")

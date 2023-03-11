@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import useLocalStorage from './useLocalStorage';
+import getCSRFToken from './getCSRFToken';
 
 const AuthContext = createContext();
 
@@ -27,8 +28,13 @@ export const AuthProvider = ({ children }) => {
    const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
    const sendData = async data => {
       try {
+         const CSRFToken = await getCSRFToken();
          const res = await fetch(`${REACT_APP_API_URL}/api/v1/login`, {
             method: 'POST',
+            headers: {
+               'X-CSRFToken': CSRFToken
+            },
+            credentials: 'include',
             body: JSON.stringify(data)
          });
          if(res.status !== 200) {

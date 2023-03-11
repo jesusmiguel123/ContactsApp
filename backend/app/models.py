@@ -1,6 +1,10 @@
 from sqlalchemy import Column, Integer, String, Identity, ForeignKey
 from sqlalchemy.orm import relationship
+
+from flask_login import UserMixin
+
 from .db import Base
+from . import login_manager
 
 class Contact(Base):
    __tablename__ = 'contacts'
@@ -37,7 +41,7 @@ class Profile(Base):
    def __repr__(self):
       return f"<Profile {self.username!r}>"
 
-class User(Base):
+class User(Base, UserMixin):
    __tablename__ = 'users'
    id = Column(Integer,  Identity(start=1), primary_key=True)
    username = Column(String(25), unique=True, nullable=False, primary_key=True)
@@ -49,3 +53,12 @@ class User(Base):
 
    def __repr__(self):
       return f"<User {self.username!r}>"
+
+@login_manager.user_loader
+def load_user(id):
+   return User.query.filter(User.id == id).first()
+
+@login_manager.request_loader
+def load_user_from_request(request):
+   username = request.view_args.get("username")
+   return User.query.filter(User.username == username).first()
