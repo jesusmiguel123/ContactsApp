@@ -9,6 +9,7 @@ from flask import send_from_directory
 from flask_wtf.csrf import generate_csrf
 
 from flask_login import login_user
+from flask_login import logout_user
 from flask_login import login_required
 from flask_login import current_user
 
@@ -16,6 +17,7 @@ from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 from werkzeug.utils import secure_filename
 
+import os
 import json
 from pathlib import Path
 from functools import wraps
@@ -74,6 +76,14 @@ def login():
          "body": "Server error"
       }), 400
 
+@bp.get("/logout")
+@login_required
+def logout():
+   logout_user()
+   return jsonify({
+      "body": "User Logout"
+   })
+
 @bp.post("/register")
 def register():
    try:
@@ -99,7 +109,7 @@ def register():
          }), 400
       if password != repassword:
          return jsonify({
-            "body": "Repassword is required!"
+            "body": "Repassword is not equal to password!"
          }), 400
       if len(password) < 8:
          return jsonify({
@@ -173,6 +183,122 @@ def profile_photo(username):
          }), 400
       filename = profile.profile_image_url.split("/")[-1]
       return send_from_directory(BASE_DIR / "static/img", filename)
+   except Exception as e:
+      print(e)
+      return jsonify({
+         "body": "Server error"
+      }), 400
+
+@bp.post("/edit-profile/<username>")
+@login_required
+@check_user
+def edit_profile(username):
+   try:
+      name = request.form.get("name")
+      lastname = request.form.get("lastname")
+      newUsername = request.form.get("username")
+      oldPassword = request.form.get("oldPassword")
+      newPassword = request.form.get("newPassword")
+      email = request.form.get("email")
+      if "file" not in request.files:
+         return jsonify({
+            "body": "No file part"
+         }), 400
+      file = request.files["file"]
+      if not (name.strip() 
+              and lastname.strip()
+              and username.strip()
+              and oldPassword.strip()
+              and newPassword.strip()
+              and email.strip()):
+         return jsonify({
+            "body": "Void fields"
+         }), 400
+      user = User.query.filter(User.username == username).first()
+      if user == None:
+         return jsonify({
+            "body": "User not found!"
+         }), 400
+      if not check_password_hash(user.password, oldPassword):
+         return jsonify({
+            "body": "Old password incorrect!"
+         }), 400
+      if len(newPassword) < 8:
+         return jsonify({
+            "body": "New password lenght < 8!"
+         }), 400
+      if (file.filename.rsplit(".", 1)[1].lower() not in {"jpg", "jpeg", "png"}
+          or "." not in file.filename):
+         return jsonify({
+            "body": "File type not supported!"
+         }), 400
+      profile = Profile.query.filter(Profile.username == username).first()
+      if name != profile.name:
+         profile.name = name
+      if lastname != profile.lastname:
+         profile.lastname = lastname
+      if email != profile.email:
+         profile_check = Profile.query.filter(Profile.email == email).first()
+         if profile_check != None:
+            return jsonify({
+               "body": f"Email {email} already exists!"
+            }), 400
+         profile.email = email
+      file_bytes = file.read()
+      filename = secure_filename(file.filename)
+      if newUsername != username:
+         user_check = User.query.filter(User.username == newUsername).first()
+         if user_check != None:
+            return jsonify({
+               "body": f"Username {newUsername} already exists!"
+            }), 400
+         os.remove(BASE_DIR / "static/img" / filename)
+         filename_split = filename.split("_profile_photo")
+         filename_split[0] = newUsername
+         filename = "_profile_photo".join(filename_split)
+      with open(BASE_DIR / "static/img" / filename, "wb") as f:
+         f.write(file_bytes)
+      profile_image_url = f"static/img/{filename}"
+      profile.profile_image_url = profile_image_url
+      if newPassword != oldPassword:
+         password_hashed = generate_password_hash(newPassword)
+         user.password = password_hashed
+      if newUsername != username:
+         db_session.commit()
+         new_user = User(
+            newUsername,
+            user.password
+         )
+         db_session.add(new_user)
+         db_session.commit()
+         new_profile = Profile(
+            profile.name,
+            profile.lastname,
+            newUsername,
+            "my_email",
+            "my_profile_image_url"
+         )
+         db_session.add(new_profile)
+         db_session.commit()
+         contacts = Contact.query.filter(Contact.username == username).all()
+         for contact in contacts:
+            contact.username = newUsername
+         contactsOf = Contact.query.filter(Contact.contact_username == username).all()
+         for contact in contactsOf:
+            contact.contact_username = newUsername
+         db_session.commit()
+         new_profile_email = profile.email
+         new_profile_image_url = profile.profile_image_url
+         db_session.delete(profile)
+         db_session.commit()
+         db_session.delete(user)
+         db_session.commit()
+         new_profile.email = new_profile_email
+         new_profile.profile_image_url = new_profile_image_url
+      db_session.commit()
+      return jsonify({
+         "body": "Profile edited successfully!"
+      })
    except Exception as e:
       print(e)
       return jsonify({
@@ -277,6 +403,30 @@ def add_contact(username):
       db_session.commit()
       return jsonify({
          "body": "Successfully added!"
+      })
+   except Exception as e:
+      print(e)
+      return jsonify({
+         "body": "Server error"
+      }), 400
+
+@bp.get("/delete-contact/<username>/<contact_username>")
+@login_required
+@check_user
+def delete_contact(username, contact_username):
+   try:
+      contact = Contact.query.filter(
+         Contact.username == username,
+         Contact.contact_username == contact_username
+      ).first()
+      if contact == None:
+         return jsonify({
+            "body": f"Connection not found!"
+         }), 400
+      db_session.delete(contact)
+      db_session.commit()
+      return jsonify({
+         "body": "Successfully removed!"
       })
    except Exception as e:
       print(e)

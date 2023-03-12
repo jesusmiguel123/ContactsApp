@@ -51,10 +51,24 @@ export const AuthProvider = ({ children }) => {
       }
    };
 
-   const logout = () => {
+   const logout = async () => {
+      await logout_user();
       setAuth(false);
       removeUser();
    }
+
+   const logout_user  = async () => {
+      try {
+         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/logout`);
+         if(!res.ok) {
+            console.log(res);
+         }
+         const data = await res.json();
+         console.log(data.body);
+      } catch (error) {
+         console.log(error);
+      }
+   };
 
    return (
       <AuthContext.Provider value={{ isAuth, login, logout }}>

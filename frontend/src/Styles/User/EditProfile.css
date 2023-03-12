@@ -86,3 +86,73 @@
    border-color: green;
    color: green;
 }
+
+.edit-profile form input::file-selector-button {
+   border: 2px solid #6c5ce7;
+   border-radius: 0.2em;
+   background-color: #a29bfe;
+   transition: 1s;
+   cursor: pointer;  
+}
+
+.edit-profile form .info {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #486581;
+   font-weight: 400;
+   color: #BCCCDC;
+   border-radius: 15px;
+   border: 1px solid #BCCCDC;
+   margin: 5px auto;
+   padding: 10px;
+   height: 12%;
+   width: 80%;
+   font-size: 25px;
+}
+
+.edit-profile form .error {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #8A1000;
+   font-weight: 400;
+   color: #FF6652;
+   border-radius: 15px;
+   border: 1px solid #FF6652;
+   margin: 5px auto;
+   padding: 10px;
+   height: 12%;
+   width: 80%;
+   font-size: 25px;
+}
+
+.edit-profile form .success {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #017008;
+   font-weight: 400;
+   color: #00F02C;
+   border-radius: 10px;
+   border: 1px solid #00F02C;
+   margin: 5px auto;
+   padding: 10px;
+   height: 12%;
+   width: 70%;
+   font-size: 28px;
+}
+
+.edit-profile form .error:before,
+.edit-profile form .success:before,
+.edit-profile form .info:before {
+   font-family: Arial, Helvetica, sans-serif;
+}
+
+.edit-profile form .error .icon,
+.edit-profile form .success .icon,
+.edit-profile form .info .icon {
+   width: 10%;
+   vertical-align: middle;
+   padding: 0px 7px 0px 7px;
+}

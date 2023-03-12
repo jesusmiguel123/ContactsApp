@@ -47,3 +47,67 @@
    justify-content: center;
    padding: 10px;
 }
+
+.contact .data .delete-contact {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   padding: 16px;
+   margin: 10px;
+   background-color: #8A1000;
+   border-color: #FF6652;
+   border-radius: 20px;
+   font-size: 24px;
+   color: #DDD;
+}
+
+.contact .data .delete-contact:hover {
+   background-color: #DDD;
+   border-color: #8A1000;
+   color: #8A1000;
+}
+
+.contact .data .error {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #8A1000;
+   font-weight: 400;
+   color: #FF6652;
+   border-radius: 15px;
+   border: 1px solid #FF6652;
+   margin: 5px auto;
+   padding: 10px;
+   height: 12%;
+   width: 80%;
+   font-size: 25px;
+}
+
+.contact .data .success {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #017008;
+   font-weight: 400;
+   color: #00F02C;
+   border-radius: 10px;
+   border: 1px solid #00F02C;
+   margin: 5px auto;
+   padding: 10px;
+   height: 12%;
+   width: 80%;
+   font-size: 28px;
+}
+
+.contact .data .error:before,
+.contact .data .success:before {
+   font-family: Arial, Helvetica, sans-serif;
+}
+
+.contact .data .error .icon,
+.contact .data .success .icon {
+   width: 10%;
+   vertical-align: middle;
+   padding: 0px 7px 0px 7px;
+}

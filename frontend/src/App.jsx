@@ -40,8 +40,8 @@ const App = () => {
 
   const navigate = useNavigate();
   const { logout } = useAuth();
-  const logouthandler = () => {
-    logout();
+  const logouthandler = async () => {
+    await logout();
     setUser(null);
     navigate('/login');
   };
@@ -70,7 +70,7 @@ const App = () => {
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/user" element={<Profile user={user} />} />
           <Route path="/user/my-contacts" element={<Contacts user={user} />}>
-            <Route path="contact/:username" element={<Contact />} />
+            <Route path="contact/:username" element={<Contact user={user} />} />
           </Route>
       </Routes>
     </>

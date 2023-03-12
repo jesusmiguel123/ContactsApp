@@ -33,7 +33,23 @@ const Profile = ({ user }) => {
             console.log(res);
          }
          const photo = await res.blob();
-         const src = URL.createObjectURL(photo);
+
+         const old_create = URL.createObjectURL;
+         Object.defineProperty(URL, "createObjectURLCustom", {
+            get: () => storeAndCreate
+         });
+         Object.defineProperty(URL, "getFromObjectURL", {
+            get: () => getBlob
+         });
+         const dict = {};
+         const storeAndCreate = blob => {
+            const url = old_create(blob);
+            dict[url] = blob;
+            return url
+         };
+         const getBlob = url => dict[url] || null;
+         
+         const src = URL.createObjectURLCustom(photo);
          setPhoto(src);
       } catch (error) {
          console.log(error);
@@ -70,7 +86,12 @@ const Profile = ({ user }) => {
          <button className="edit-profile-button" onClick={editProfile}>Edit {editIcon}</button>
          {showModalEditProfile
             && <Modal closeModal={closeModalEditProfile} title="Edit profile">
-                  <EditProfile user={user} />
+                  <EditProfile
+                     user={user}
+                     name={data.name}
+                     lastname={data.lastname}
+                     email={data.email}
+                     photo={photo}/>
                </Modal>}
       </div>
    );  
