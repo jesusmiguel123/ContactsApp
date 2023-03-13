@@ -1,20 +1,26 @@
-from flask import Blueprint
-from flask import request
-from flask import render_template
-from flask import url_for
-from flask import redirect
-from flask import jsonify
-from flask import send_from_directory
+from flask import (
+   Blueprint,
+   request,
+   render_template,
+   url_for,
+   redirect,
+   jsonify,
+   send_from_directory
+)
 
 from flask_wtf.csrf import generate_csrf
 
-from flask_login import login_user
-from flask_login import logout_user
-from flask_login import login_required
-from flask_login import current_user
+from flask_login import (
+   login_user,
+   logout_user,
+   login_required,
+   current_user
+)
 
-from werkzeug.security import generate_password_hash
-from werkzeug.security import check_password_hash
+from werkzeug.security import (
+   generate_password_hash,
+   check_password_hash
+)
 from werkzeug.utils import secure_filename
 
 import os
@@ -23,9 +29,11 @@ from pathlib import Path
 from functools import wraps
 
 from .db import db_session
-from .models import User
-from .models import Profile
-from .models import Contact
+from .models import (
+   User,
+   Profile,
+   Contact
+)
 
 BASE_DIR = Path(__file__).resolve().parent
 

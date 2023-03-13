@@ -1,4 +1,10 @@
-from sqlalchemy import Column, Integer, String, Identity, ForeignKey
+from sqlalchemy import (
+   Column,
+   Integer,
+   String,
+   Identity,
+   ForeignKey
+)
 from sqlalchemy.orm import relationship
 
 from flask_login import UserMixin
