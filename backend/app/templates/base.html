@@ -10,11 +10,16 @@
 </head>
 <body>
    <header>
-      <h1><a href="{{ url_for('admin.index') }}">Contacts App</a></h1>
+      <h1><a href="{{ url_for('admin.home') }}">Contacts App</a></h1>
       <nav>
          <ul>
-            <li><a href="{{ url_for('admin.index') }}">Home</a></li>
-            <li><a href="{{ url_for('admin.login') }}">Login</a></li>
+            {% if current_user.is_authenticated %}
+               <li><a href="{{ url_for('admin.admin_home') }}">Home</a></li>
+               <li><a href="{{ url_for('admin.logout') }}">Logout</a></li>
+            {% else %}
+               <li><a href="{{ url_for('admin.home') }}">Home</a></li>
+               <li><a href="{{ url_for('admin.login') }}">Login</a></li>
+            {% endif %}
          </ul>
       </nav>
    </header>
