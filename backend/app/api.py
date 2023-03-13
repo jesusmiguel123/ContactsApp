@@ -76,9 +76,9 @@ def login():
          "body": "Server error"
       }), 400
 
-@bp.get("/logout")
+@bp.get("/logout/<username>")
 @login_required
-def logout():
+def logout(username):
    logout_user()
    return jsonify({
       "body": "User Logout"

@@ -49,7 +49,7 @@ const App = () => {
   return (
     <>
       <header>
-        <h1><Link to="/">Reservation Web</Link></h1>
+        <h1><Link to="/">Contacts Web</Link></h1>
         <nav>
           <ul>
               { user ?

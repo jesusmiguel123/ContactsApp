@@ -10,7 +10,7 @@ export const useAuth = () => {
 }
 
 export const AuthProvider = ({ children }) => {
-   const [, setUser, removeUser] = useLocalStorage("user");
+   const [getUser, setUser, removeUser] = useLocalStorage("user");
    const [isAuth, setAuth] = useState(false);
 
    const login = async (username, password) => {
@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
 
    const logout_user  = async () => {
       try {
-         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/logout`);
+         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/logout/${getUser()}`);
          if(!res.ok) {
             console.log(res);
          }
