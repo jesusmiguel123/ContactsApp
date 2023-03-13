@@ -54,9 +54,22 @@ class User(Base, UserMixin):
    def __repr__(self):
       return f"<User {self.username!r}>"
 
+class Admin(Base, UserMixin):
+   __tablename__ = 'admins'
+   id = Column(Integer,  Identity(start=1), primary_key=True)
+   username = Column(String(25), unique=True, nullable=False, primary_key=True)
+   password = Column(String(150), nullable=False)
+
+   def __init__(self, username, password):
+      self.username = username
+      self.password = password
+
+   def __repr__(self):
+      return f"<Admin {self.username!r}>"
+
 @login_manager.user_loader
 def load_user(id):
-   return User.query.filter(User.id == id).first()
+   return Admin.query.filter(Admin.id == id).first()
 
 @login_manager.request_loader
 def load_user_from_request(request):

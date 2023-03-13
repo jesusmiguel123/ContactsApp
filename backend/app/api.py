@@ -325,10 +325,8 @@ def profiles(username):
             "body": f"Any profile found"
          }), 400
       data = []
-      list_contacts = []
       contacts = Contact.query.filter(Contact.username == username).with_entities(Contact.contact_username).all()
-      if contacts != None:
-         list_contacts = [contact[0] for contact in contacts]
+      list_contacts = [contact[0] for contact in contacts]
       list_contacts = list_contacts + [username]
       for profile in profiles:
          if profile[0] not in list_contacts:

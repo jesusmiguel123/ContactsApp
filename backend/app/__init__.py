@@ -38,6 +38,10 @@ from . import db
 db.init_app(app)
 
 from . import api
+from . import admin
+
+admin.init_app(app)
 
 app.register_blueprint(api.bp)
+app.register_blueprint(admin.bp)
 app.add_url_rule("/", endpoint="index")

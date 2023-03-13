@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-import click
+from click import command, echo
 
 from dotenv import load_dotenv
 import os
@@ -31,15 +31,15 @@ def init_db():
 def close_db(exceptions=None):
    db_session.remove()
 
-@click.command("init-db")
+@command("init-db")
 def init_db_command():
-    """Clear existing data and create new tables."""
-    init_db()
-    click.echo("Initialized the database.")
+   """Clear existing data and create new tables."""
+   init_db()
+   echo("Initialized the database.")
 
 def init_app(app):
-    """Register database functions with the Flask app. This is called by
-    the application factory.
-    """
-    app.teardown_appcontext(close_db)
-    app.cli.add_command(init_db_command)
+   """Register database functions with the Flask app. This is called by
+   the application factory.
+   """
+   app.teardown_appcontext(close_db)
+   app.cli.add_command(init_db_command)
