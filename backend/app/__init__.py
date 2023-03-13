@@ -31,7 +31,7 @@ cors = CORS(
 
 @app.get("/")
 def index():
-   return "<h1>API for Web Application</h1>"
+   return "<h1>Contacts Web Application</h1>"
 
 from . import db
 

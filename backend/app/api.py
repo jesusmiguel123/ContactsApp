@@ -51,6 +51,10 @@ def get_csrf_token():
    response.set_cookie("csrftoken", token, secure=True, httponly=True, samesite="None")
    return response
 
+@bp.get("/")
+def api_index():
+   return "<h1>API for Contacts App</h1>"
+
 @bp.post("/login")
 def login():
    try:
