@@ -23,7 +23,12 @@ from werkzeug.security import (
 )
 
 from .db import db_session
-from .models import Admin
+from .models import (
+   Admin,
+   User,
+   Profile,
+   Contact
+)
 
 bp = Blueprint("admin", __name__, url_prefix="/admin")
 
@@ -55,10 +60,71 @@ def logout():
    logout_user()
    return redirect(url_for("admin.login"))
 
-@bp.get("/admin")
+@bp.get("/home")
 @login_required
 def admin_home():
-   return render_template("admin/home.html")
+   return render_template("Admin/home.html")
+
+@bp.get("/users")
+@login_required
+def users():
+   users = User.query.order_by(User.username).all()
+   users_list = []
+   for user in users:
+      users_list.append({
+         "username": user.username
+      })
+   return render_template(
+      "Admin/users.html",
+      users=users_list
+   )
+
+@bp.get("/profiles")
+@login_required
+def profiles():
+   profiles = Profile.query.order_by(Profile.username).all()
+   profiles_list = []
+   for profile in profiles:
+      profiles_list.append({
+         "name": profile.name,
+         "lastname": profile.lastname,
+         "username": profile.username,
+         "email": profile.email,
+         "profile_photo": profile.profile_image_url
+      })
+   return render_template(
+      "Admin/profiles.html",
+      profiles=profiles_list
+   )
+
+@bp.get("/contacts")
+@login_required
+def contacts():
+   contacts = Contact.query.order_by(Contact.username).all()
+   contacts_list = []
+   for contact in contacts:
+      contacts_list.append({
+         "user": contact.username,
+         "contact": contact.contact_username
+      })
+   return render_template(
+      "Admin/contacts.html",
+      contacts=contacts_list
+   )
+
+@bp.get("/admins")
+@login_required
+def admins():
+   admins = Admin.query.order_by(Admin.username).all()
+   admins_list = []
+   for admin in admins:
+      admins_list.append({
+         "username": admin.username
+      })
+   return render_template(
+      "Admin/admins.html",
+      admins=admins_list
+   )
 
 @command("initial-admin")
 def initial_admin_command():

@@ -1,0 +1,82 @@
+.admin-contacts {
+   height: 80vh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   font-size: 20px;
+}
+
+.admin-contacts p {
+   padding: 5px;
+   font-size: 24px;
+   font-weight: 700;
+}
+
+.admin-contacts table {
+   width: 80%;
+   height: 10%;
+   padding: 5px;
+}
+
+.admin-contacts table thead th {
+   background-color: #787C74;
+   border-bottom: 1px solid #DDD;
+   padding: 5px 0px 5px 0px;
+}
+
+.admin-contacts table tbody {
+   display: flex;
+   flex-direction: column;
+   max-height: 206px;
+   overflow-y: scroll;
+}
+
+.admin-contacts table thead tr, .admin-contacts table tbody tr {
+   display: flex;
+   width: 100%;
+}
+
+.admin-contacts table tr .field {
+   flex: 3;
+   text-align: center;
+}
+
+.admin-contacts table tr .field-edit {
+   flex: 1;
+}
+
+.admin-contacts table tbody tr:nth-child(odd) {
+   background-color: #282c34;
+}
+
+.admin-contacts table tbody tr:nth-child(even) {
+   background-color: #484C54;
+}
+
+.admin-contacts table tbody tr:hover {
+   background-color: #787C74;
+}
+
+.admin-contacts table tr td {
+   padding: 10px;
+}
+
+.admin-contacts table tbody tr td .edit a {
+   display: flex;
+   align-items: center;
+   text-decoration: none;
+   color: #DDD;
+   font-size: 20px;
+   font-weight: 500;
+   width: 100%;
+   cursor: pointer;
+}
+
+.admin-contacts table tbody tr td a:hover {
+   color: #282c34;
+}
+
+.admin-contacts table tbody tr td .edit a svg {
+   padding: 2px;
+}

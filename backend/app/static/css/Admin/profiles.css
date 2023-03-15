@@ -1,0 +1,82 @@
+.admin-profiles {
+   height: 80vh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   font-size: 20px;
+}
+
+.admin-profiles p {
+   padding: 5px;
+   font-size: 24px;
+   font-weight: 700;
+}
+
+.admin-profiles table {
+   width: 80%;
+   height: 10%;
+   padding: 5px;
+}
+
+.admin-profiles table thead th {
+   background-color: #787C74;
+   border-bottom: 1px solid #DDD;
+   padding: 5px 0px 5px 0px;
+}
+
+.admin-profiles table tbody {
+   display: flex;
+   flex-direction: column;
+   max-height: 206px;
+   overflow-y: scroll;
+}
+
+.admin-profiles table thead tr, .admin-profiles table tbody tr {
+   display: flex;
+   width: 100%;
+}
+
+.admin-profiles table tr .field {
+   flex: 1;
+}
+
+.admin-profiles table tr .photo {
+   flex: 3;
+   text-overflow: ellipsis;
+}
+
+.admin-profiles table tbody tr:nth-child(odd) {
+   background-color: #282c34;
+}
+
+.admin-profiles table tbody tr:nth-child(even) {
+   background-color: #484C54;
+}
+
+.admin-profiles table tbody tr:hover {
+   background-color: #787C74;
+}
+
+.admin-profiles table tr td {
+   padding: 10px;
+}
+
+.admin-profiles table tbody tr td .edit a {
+   display: flex;
+   align-items: center;
+   text-decoration: none;
+   color: #DDD;
+   font-size: 20px;
+   font-weight: 500;
+   width: 100%;
+   cursor: pointer;
+}
+
+.admin-profiles table tbody tr td a:hover {
+   color: #282c34;
+}
+
+.admin-profiles table tbody tr td .edit a svg {
+   padding: 2px;
+}

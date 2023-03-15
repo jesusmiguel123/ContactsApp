@@ -1,0 +1,87 @@
+.admin-home {
+   height: 80vh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   font-size: 28px;
+}
+
+.admin-home p {
+   padding: 5px;
+   font-weight: 700;
+}
+
+.admin-home table {
+   width: 50%;
+   height: 10%;
+   padding: 5px;
+}
+
+.admin-home table thead th {
+   background-color: #787C74;
+   border-bottom: 1px solid #DDD;
+}
+
+.admin-home table tbody tr{
+   padding: 10px;
+}
+
+.admin-home table tbody tr:nth-child(odd) {
+   background-color: #282c34;
+}
+
+.admin-home table tbody tr:nth-child(even) {
+   background-color: #484C54;
+}
+
+.admin-home table tbody tr:hover {
+   background-color: #787C74;
+}
+
+.admin-home table tr td {
+   display: flex;
+   align-items: center;
+   padding: 10px;
+}
+
+.admin-home table tr td .model-name {
+   flex: 3;
+   display: flex;
+   align-items: center;
+}
+
+.admin-home table tr td .model-actions {
+   flex: 1;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.admin-home table tbody tr td .model-name a {
+   text-decoration: none;
+   color: #DDD;
+   font-size: 20px;
+   font-weight: 500;
+   cursor: pointer;
+}
+
+.admin-home table tbody tr td .model-actions a {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   text-decoration: none;
+   color: #DDD;
+   font-size: 20px;
+   font-weight: 700;
+   width: 100%;
+   cursor: pointer;
+}
+
+.admin-home table tbody tr td a:hover {
+   color: #282c34;
+}
+
+.admin-home table tbody tr td .model-actions a svg {
+   padding: 2px;
+}
