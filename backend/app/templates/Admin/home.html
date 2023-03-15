@@ -19,13 +19,11 @@
                      <a href="{{ url_for('admin.users') }}">Users</a>
                   </div>
                   <div class="model-actions">
-                     <p>
-                        <a href="#">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                              <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-                           </svg>
-                           Add
-                        </a>
+                     <p class="add" id="add-users">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                           <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                        </svg>
+                        Add
                      </p>
                      <p>
                         <a href="{{ url_for('admin.users') }}">
@@ -44,13 +42,11 @@
                      <a href="{{ url_for('admin.profiles') }}">Profiles</a>
                   </div>
                   <div class="model-actions">
-                     <p>
-                        <a href="#">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                              <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-                           </svg>
-                           Add
-                        </a>
+                     <p class="add" id="add-profiles">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                           <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                        </svg>
+                        Add
                      </p>
                      <p>
                         <a href="{{ url_for('admin.profiles') }}">
@@ -69,13 +65,11 @@
                      <a href="{{ url_for('admin.contacts') }}">Contacts</a>
                   </div>
                   <div class="model-actions">
-                     <p>
-                        <a href="#">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                              <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-                           </svg>
-                           Add
-                        </a>
+                     <p class="add" id="add-contacts">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                           <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                        </svg>
+                        Add
                      </p>
                      <p>
                         <a href="{{ url_for('admin.contacts') }}">
@@ -101,13 +95,11 @@
                      <a href="{{ url_for('admin.admins') }}">Admins</a>
                   </div>
                   <div class="model-actions">
-                     <p>
-                        <a href="#">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                              <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-                           </svg>
-                           Add
-                        </a>
+                     <p class="add" id="add-admins">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                           <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                        </svg>
+                        Add
                      </p>
                      <p>
                         <a href="{{ url_for('admin.admins') }}">
@@ -123,4 +115,8 @@
          </tbody>
       </table>
    </div>
+   <script src="{{ url_for('static', filename='js/add-users.js') }}"></script>
+   <script src="{{ url_for('static', filename='js/add-profiles.js') }}"></script>
+   <script src="{{ url_for('static', filename='js/add-contacts.js') }}"></script>
+   <script src="{{ url_for('static', filename='js/add-admins.js') }}"></script>
 {% endblock %}

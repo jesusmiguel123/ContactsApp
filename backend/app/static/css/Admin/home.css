@@ -82,6 +82,76 @@
    color: #282c34;
 }
 
-.admin-home table tbody tr td .model-actions a svg {
+.admin-home table tbody tr td .model-actions svg {
    padding: 2px;
+}
+
+.admin-home table tbody tr td .model-actions .add {
+   display: flex;
+   align-items: center;
+   font-size: 20px;
+   cursor: pointer;
+}
+
+.admin-home table tbody tr td .model-actions .add:hover {
+   color: #282c34;
+}
+
+.admin-home .background {
+   width: 100vw;
+   height: 100vh;
+   position: fixed;
+   top: 0;
+   left: 0;
+   background-color: rgba(0, 0, 0, 0.5);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.admin-home .background .modal {
+   width: 750px;
+   min-height: 400px;
+   background-color: #383c44;
+   position: relative;
+   border-radius: 20px;
+   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.admin-home .header {
+   top: 0;
+   display: flex;
+   width: 100%;
+   height: 60px;
+   border-top-left-radius: inherit;
+   border-top-right-radius: inherit;
+   background-color: #585C54;
+   align-items: center;
+   justify-content: center;
+}
+
+.admin-home .body {
+   padding: 15px;
+}
+
+.admin-home .background .header .close {
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   width: 40px;
+   height: 40px;
+   border: none;
+   cursor: pointer;
+   border-radius: 20px;
+   background-color: #484c54;
+   color: #DDD;
+}
+
+.admin-home .background .header .close:hover {
+   background-color: #787C74;
+}
+
+.admin-home .background .header .close svg {
+   width: 100%;
+   height: 100%;
 }
