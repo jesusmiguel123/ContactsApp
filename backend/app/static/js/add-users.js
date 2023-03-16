@@ -26,6 +26,60 @@ addUsers.onclick = () => {
 
    const divBody = document.createElement('div');
    divBody.className = "body";
+   divBody.innerHTML = `
+   <form class="add-users-form">
+      <input type="hidden" name="csrf_token" value=${csrf_token} />
+      <div class="username">
+         <p>Username:</p>
+         <input
+            type="text"
+            placeholder="Username"
+            name="username"
+            required/>
+      </div>
+      <div class="password">
+         <p>Password:</p>
+         <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            required/>
+      </div>
+      <button type="submit" class="send-button">Save</button>
+   </form>`;
+   const myForm = divBody.getElementsByClassName("add-users-form")[0];
+   
+   const sendData = async data => {
+      try {
+         const res = await fetch(addUsersURL, {
+            method: 'POST',
+            headers: {
+               'X-CSRFToken': csrf_token
+            },
+            credentials: 'include',
+            body: data
+         });
+         if(res.status !== 200) {
+            if(res.status === 400) {
+               const response = await res.json();
+               alert(response.body);
+            }
+            throw new Error(res.statusText);
+         }
+         const response = await res.json();
+         const usersPage = response.body;
+         window.location.href = usersPage;
+      } catch (error) {
+         console.error(error);
+      }
+   };
+   
+   myForm.addEventListener("submit", e => {
+      e.preventDefault();
+
+      const myFormData = new FormData(myForm);
+      sendData(myFormData);
+   });
 
    divModal.appendChild(divHeader);
    divModal.appendChild(divBody);

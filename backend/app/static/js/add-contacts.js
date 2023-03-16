@@ -26,6 +26,26 @@ addContacts.onclick = () => {
 
    const divBody = document.createElement('div');
    divBody.className = "body";
+   divBody.innerHTML = `
+   <form class="add-contacts-form">
+      <div class="username">
+         <p>Username:</p>
+         <input
+            type="text"
+            placeholder="Username"
+            name="username"
+            required/>
+      </div>
+      <div class="contact-username">
+         <p>Contact:</p>
+         <input
+            type="text"
+            placeholder="Contact"
+            name="contact"
+            required/>
+      </div>
+      <button type="submit" class="send-button">Save</button>
+   </form>`;
 
    divModal.appendChild(divHeader);
    divModal.appendChild(divBody);

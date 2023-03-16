@@ -79,6 +79,32 @@ def users():
       users=users_list
    )
 
+@bp.post("/add-user")
+@login_required
+def add_user():
+   try:
+      username = request.form.get("username")
+      password = request.form.get("password")
+      if User.query.filter(User.username == username).first() != None:
+         return jsonify({
+            "body": f"Username {username} already exists!"
+         }), 400
+      password_hashed = generate_password_hash(password)
+      new_user = User(username, password_hashed)
+      new_profile = Profile("name", "lastname", username, "email", "profile_image_url")
+      db_session.add(new_user)
+      db_session.commit()
+      db_session.add(new_profile)
+      db_session.commit()
+      return jsonify({
+         "body": f"{url_for('admin.users')}"
+      })
+   except Exception as e:
+      print(e)
+      return jsonify({
+         "body": f"Server error!"
+      }), 400
+
 @bp.get("/profiles")
 @login_required
 def profiles():

@@ -13,7 +13,7 @@
 }
 
 .admin-home table {
-   width: 50%;
+   width: 85%;
    height: 10%;
    padding: 5px;
 }
@@ -110,15 +110,15 @@
 }
 
 .admin-home .background .modal {
-   width: 750px;
-   min-height: 400px;
+   width: 90%;
+   min-height: 200px;
    background-color: #383c44;
    position: relative;
    border-radius: 20px;
    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-.admin-home .header {
+.admin-home .background .modal .header {
    top: 0;
    display: flex;
    width: 100%;
@@ -130,11 +130,11 @@
    justify-content: center;
 }
 
-.admin-home .body {
-   padding: 15px;
+.admin-home .background .modal .body {
+   padding: 10px;
 }
 
-.admin-home .background .header .close {
+.admin-home .background .modal .header .close {
    position: absolute;
    top: 10px;
    right: 10px;
@@ -147,11 +147,225 @@
    color: #DDD;
 }
 
-.admin-home .background .header .close:hover {
+.admin-home .background .modal .header .close:hover {
    background-color: #787C74;
 }
 
 .admin-home .background .header .close svg {
    width: 100%;
    height: 100%;
+}
+
+.admin-home .background .modal .body .add-users-form {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   padding: 5px;
+}
+
+.admin-home .background .modal .body .add-users-form div {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 6px;
+   width: 100%;
+}
+
+.admin-home .background .modal .body .add-users-form div p {
+   flex: 1;
+   text-align: right;
+}
+
+.admin-home .background .modal .body .add-users-form div input {
+   flex: 2;
+   margin: 5px;
+   height: 24px;
+   border-radius: 5%;
+   padding: 3px;
+   font-size: 28px;
+}
+
+.admin-home .background .modal .body .add-users-form .send-button {
+   cursor: pointer;
+   padding: 10px;
+   margin: 20px 0px 10px 0px;
+   background-color: green;
+   border-color: green;
+   border-radius: 20px;
+   font-size: 28px;
+   color: #DDD;
+}
+
+.admin-home .background .modal .body .add-users-form .send-button:hover {
+   background-color: #DDD;
+   border-color: green;
+   color: green;
+}
+
+.admin-home .background .modal .body .add-admins-form {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   padding: 5px;
+}
+
+.admin-home .background .modal .body .add-admins-form div {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 6px;
+   width: 100%;
+}
+
+.admin-home .background .modal .body .add-admins-form div p {
+   flex: 1;
+   text-align: right;
+}
+
+.admin-home .background .modal .body .add-admins-form div input {
+   flex: 2;
+   margin: 5px;
+   height: 24px;
+   border-radius: 5%;
+   padding: 3px;
+   font-size: 28px;
+}
+
+.admin-home .background .modal .body .add-admins-form .send-button {
+   cursor: pointer;
+   padding: 10px;
+   margin: 20px 0px 10px 0px;
+   background-color: green;
+   border-color: green;
+   border-radius: 20px;
+   font-size: 28px;
+   color: #DDD;
+}
+
+.admin-home .background .modal .body .add-admins-form .send-button:hover {
+   background-color: #DDD;
+   border-color: green;
+   color: green;
+}
+
+.admin-home .background .modal .body .add-contacts-form {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   padding: 5px;
+}
+
+.admin-home .background .modal .body .add-contacts-form div {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 6px;
+   width: 100%;
+}
+
+.admin-home .background .modal .body .add-contacts-form div p {
+   flex: 1;
+   text-align: right;
+}
+
+.admin-home .background .modal .body .add-contacts-form div input {
+   flex: 2;
+   margin: 5px;
+   height: 24px;
+   border-radius: 5%;
+   padding: 3px;
+   font-size: 28px;
+}
+
+.admin-home .background .modal .body .add-contacts-form .send-button {
+   cursor: pointer;
+   padding: 10px;
+   margin: 20px 0px 10px 0px;
+   background-color: green;
+   border-color: green;
+   border-radius: 20px;
+   font-size: 28px;
+   color: #DDD;
+}
+
+.admin-home .background .modal .body .add-contacts-form .send-button:hover {
+   background-color: #DDD;
+   border-color: green;
+   color: green;
+}
+
+
+
+
+.admin-home .background .modal .body .add-profiles-form {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   padding: 5px;
+}
+
+.admin-home .background .modal .body .add-profiles-form div {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 6px;
+   width: 100%;
+}
+
+.admin-home .background .modal .body .add-profiles-form .name-lastname input {
+   width: 75%;
+   font-size: 28px;
+}
+
+.admin-home .background .modal .body .add-profiles-form .username p,
+.admin-home .background .modal .body .add-profiles-form .password p,
+.admin-home .background .modal .body .add-profiles-form .email p, 
+.admin-home .background .modal .body .add-profiles-form .photo p {
+   flex: 1;
+   text-align: right;
+}
+
+.admin-home .background .modal .body .add-profiles-form .username input,
+.admin-home .background .modal .body .add-profiles-form .password input,
+.admin-home .background .modal .body .add-profiles-form .email input, 
+.admin-home .background .modal .body .add-profiles-form .photo input  {
+   flex: 2;
+   margin: 5px;
+   height: 24px;
+   border-radius: 5%;
+   padding: 3px;
+   font-size: 28px;
+}
+
+.admin-home .background .modal .body .add-profiles-form .photo input {
+   padding-bottom: 10px;
+}
+
+.admin-home .background .modal .body .add-profiles-form .photo input::file-selector-button {
+   border: 2px solid #6c5ce7;
+   border-radius: 0.2em;
+   background-color: #a29bfe;
+   transition: 1s;
+   cursor: pointer;  
+}
+
+.admin-home .background .modal .body .add-profiles-form .send-button {
+   cursor: pointer;
+   padding: 10px;
+   margin: 5px 0px 5px 0px;
+   background-color: green;
+   border-color: green;
+   border-radius: 20px;
+   font-size: 22px;
+   color: #DDD;
+}
+
+.admin-home .background .modal .body .add-profiles-form .send-button:hover {
+   background-color: #DDD;
+   border-color: green;
+   color: green;
 }

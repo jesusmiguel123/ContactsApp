@@ -26,6 +26,26 @@ addAdmins.onclick = () => {
 
    const divBody = document.createElement('div');
    divBody.className = "body";
+   divBody.innerHTML = `
+   <form class="add-admins-form">
+      <div class="username">
+         <p>Username:</p>
+         <input
+            type="text"
+            placeholder="Username"
+            name="username"
+            required/>
+      </div>
+      <div class="password">
+         <p>Password:</p>
+         <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            required/>
+      </div>
+      <button type="submit" class="send-button">Save</button>
+   </form>`;
 
    divModal.appendChild(divHeader);
    divModal.appendChild(divBody);
