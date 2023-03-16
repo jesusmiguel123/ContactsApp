@@ -60,32 +60,35 @@
    flex: 6;
 }
 
-.admin-admins table tr td .edit {
-   flex: 1;
-}
-
-.admin-admins table tbody tr td .user a {
-   text-decoration: none;
-   color: #DDD;
-   font-size: 20px;
-   font-weight: 500;
-   cursor: pointer;
-}
-
-.admin-admins table tbody tr td .edit a {
+.admin-admins table tr td .edit,
+.admin-admins table tr td .delete {
+   margin: 0px 10px 0px 10px;
    display: flex;
    align-items: center;
-   text-decoration: none;
    color: #DDD;
-   font-size: 20px;
+   font-size: 22px;
    font-weight: 500;
    cursor: pointer;
 }
 
-.admin-admins table tbody tr td a:hover {
+.admin-admins table tbody tr td .user {
+   display: flex;
+}
+
+.admin-admins table tbody tr td .user p {
+   color: #DDD;
+   font-size: 24px;
+   font-weight: 500;
+   cursor: pointer;
+}
+
+.admin-admins table tbody tr td .user p:hover,
+.admin-admins table tbody tr td .edit:hover,
+.admin-admins table tbody tr td .delete:hover {
    color: #282c34;
 }
 
-.admin-admins table tbody tr td .edit a svg {
+.admin-admins table tbody tr td .edit svg, 
+.admin-admins table tbody tr td .delete svg {
    padding: 2px;
 }

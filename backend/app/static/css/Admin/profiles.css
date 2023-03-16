@@ -22,13 +22,13 @@
 .admin-profiles table thead th {
    background-color: #787C74;
    border-bottom: 1px solid #DDD;
-   padding: 5px 0px 5px 0px;
+   padding: 5px 3px 5px 3px;
 }
 
 .admin-profiles table tbody {
    display: flex;
    flex-direction: column;
-   max-height: 206px;
+   max-height: 125px;
    overflow-y: scroll;
 }
 
@@ -38,12 +38,21 @@
 }
 
 .admin-profiles table tr .field {
-   flex: 1;
+   flex: 2;
+   display: flex;
+   justify-content: center;
+   align-items: center;
 }
 
-.admin-profiles table tr .photo {
-   flex: 3;
-   text-overflow: ellipsis;
+.admin-profiles table tr .edit-delete {
+   flex: 1;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.admin-profiles table tr .email {
+   font-size: 18px;
 }
 
 .admin-profiles table tbody tr:nth-child(odd) {
@@ -59,24 +68,23 @@
 }
 
 .admin-profiles table tr td {
-   padding: 10px;
+   padding: 5px 3px 5px 3px;
 }
 
-.admin-profiles table tbody tr td .edit a {
+.admin-profiles table tbody tr .edit-delete p {
    display: flex;
    align-items: center;
    text-decoration: none;
    color: #DDD;
    font-size: 20px;
    font-weight: 500;
-   width: 100%;
    cursor: pointer;
 }
 
-.admin-profiles table tbody tr td a:hover {
+.admin-profiles table tbody tr .edit-delete p:hover {
    color: #282c34;
 }
 
-.admin-profiles table tbody tr td .edit a svg {
+.admin-profiles table tbody tr td .edit-delete svg {
    padding: 2px;
 }

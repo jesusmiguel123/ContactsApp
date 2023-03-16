@@ -97,7 +97,7 @@ def add_user():
       db_session.add(new_profile)
       db_session.commit()
       return jsonify({
-         "body": f"{url_for('admin.users')}"
+         "body": url_for('admin.users')
       })
    except Exception as e:
       print(e)

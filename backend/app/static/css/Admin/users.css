@@ -27,7 +27,7 @@
 
 .admin-users table tbody {
    display: block;
-   max-height: 200px;
+   max-height: 180px;
    overflow-y: scroll;
 }
 
@@ -36,7 +36,6 @@
    width: 100%;
    table-layout: fixed;
 }
-
 
 .admin-users table tbody tr:nth-child(odd) {
    background-color: #282c34;
@@ -60,32 +59,35 @@
    flex: 6;
 }
 
-.admin-users table tr td .edit {
-   flex: 1;
-}
-
-.admin-users table tbody tr td .user a {
-   text-decoration: none;
-   color: #DDD;
-   font-size: 20px;
-   font-weight: 500;
-   cursor: pointer;
-}
-
-.admin-users table tbody tr td .edit a {
+.admin-users table tr td .edit,
+.admin-users table tr td .delete {
+   margin: 0px 10px 0px 10px;
    display: flex;
    align-items: center;
-   text-decoration: none;
    color: #DDD;
-   font-size: 20px;
+   font-size: 22px;
    font-weight: 500;
    cursor: pointer;
 }
 
-.admin-users table tbody tr td a:hover {
+.admin-users table tbody tr td .user {
+   display: flex;
+}
+
+.admin-users table tbody tr td .user p {
+   color: #DDD;
+   font-size: 24px;
+   font-weight: 500;
+   cursor: pointer;
+}
+
+.admin-users table tbody tr td .user p:hover,
+.admin-users table tbody tr td .edit:hover,
+.admin-users table tbody tr td .delete:hover {
    color: #282c34;
 }
 
-.admin-users table tbody tr td .edit a svg {
+.admin-users table tbody tr td .edit svg, 
+.admin-users table tbody tr td .delete svg {
    padding: 2px;
 }
