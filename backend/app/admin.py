@@ -185,6 +185,8 @@ def delete_profile():
          db_session.delete(contact)
       db_session.commit()
       
+      filename = profile.profile_image_url
+      os.remove(BASE_DIR / filename)
       db_session.delete(profile)
       
       user = User.query.filter(User.username == username).first()
