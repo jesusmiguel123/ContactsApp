@@ -271,13 +271,13 @@
    text-align: right;
 }
 
-.admin-home .background .modal .body .add-contacts-form div input {
+.admin-home .background .modal .body .add-contacts-form div select {
    flex: 2;
    margin: 5px;
-   height: 24px;
    border-radius: 5%;
-   padding: 3px;
-   font-size: 28px;
+   padding: 10px;
+   font-size: 20px;
+   cursor: pointer;
 }
 
 .admin-home .background .modal .body .add-contacts-form .send-button {

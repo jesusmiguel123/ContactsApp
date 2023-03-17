@@ -105,6 +105,17 @@ def add_user():
          "body": f"Server error!"
       }), 400
 
+@bp.get("/get-users")
+@login_required
+def get_users():
+   users = User.query.order_by(User.username).all()
+   users_list = []
+   for user in users:
+      users_list.append(user.username)
+   return jsonify({
+      "users": users_list
+   })
+
 @bp.get("/profiles")
 @login_required
 def profiles():
@@ -138,6 +149,44 @@ def contacts():
       contacts=contacts_list
    )
 
+@bp.post("/add-contact")
+@login_required
+def add_contact():
+   try:
+      username = request.form.get("username")
+      contact = request.form.get("contact")
+      if username == contact:
+         return jsonify({
+            "body": "You can't connect a user with itself!"
+         }), 400
+      if User.query.filter(User.username == username).first() == None:
+         return jsonify({
+            "body": f"User {username} not found!"
+         }), 400
+      if User.query.filter(User.username == contact).first() == None:
+         return jsonify({
+            "body": f"User {contact} not found!"
+         }), 400
+      username_contact = Contact.query.filter(
+         Contact.username == username,
+         Contact.contact_username == contact
+      ).first()
+      if username_contact != None:
+         return jsonify({
+            "body": f"Connection already exists!"
+         }), 400
+      new_contact = Contact(username, contact)
+      db_session.add(new_contact)
+      db_session.commit()
+      return jsonify({
+         "body": url_for('admin.contacts')
+      })
+   except Exception as e:
+      print(e)
+      return jsonify({
+         "body": f"Server error!"
+      }), 400
+
 @bp.get("/admins")
 @login_required
 def admins():
@@ -151,6 +200,29 @@ def admins():
       "Admin/admins.html",
       admins=admins_list
    )
+
+@bp.post("/add-admin")
+@login_required
+def add_admin():
+   try:
+      username = request.form.get("username")
+      password = request.form.get("password")
+      if Admin.query.filter(Admin.username == username).first() != None:
+         return jsonify({
+            "body": f"Username {username} already exists!"
+         }), 400
+      password_hashed = generate_password_hash(password)
+      new_admin = Admin(username, password_hashed)
+      db_session.add(new_admin)
+      db_session.commit()
+      return jsonify({
+         "body": url_for('admin.admins')
+      })
+   except Exception as e:
+      print(e)
+      return jsonify({
+         "body": f"Server error!"
+      }), 400
 
 @command("initial-admin")
 def initial_admin_command():

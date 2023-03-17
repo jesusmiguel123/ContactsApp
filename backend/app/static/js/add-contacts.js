@@ -28,24 +28,81 @@ addContacts.onclick = () => {
    divBody.className = "body";
    divBody.innerHTML = `
    <form class="add-contacts-form">
+      <input type="hidden" name="csrf_token" value=${csrf_token} />
       <div class="username">
          <p>Username:</p>
-         <input
-            type="text"
-            placeholder="Username"
-            name="username"
-            required/>
+         <select name="username" class="select-username">
+         </select>
       </div>
       <div class="contact-username">
          <p>Contact:</p>
-         <input
-            type="text"
-            placeholder="Contact"
-            name="contact"
-            required/>
+         <select name="contact" class="select-contact">
+         </select>
       </div>
       <button type="submit" class="send-button">Save</button>
    </form>`;
+
+   const getUsers = async () => {
+      try {
+         const res = await fetch(getUsersURL);
+         if(!res.ok) {
+            console.log(res);
+         }
+         const data = await res.json();
+         return data.users;
+      } catch (error) {
+         console.log(error);
+      }
+   };
+
+   const myForm = divBody.getElementsByClassName("add-contacts-form")[0];
+   
+   const selectUsername = myForm.getElementsByClassName("select-username")[0];
+   const selectContact = myForm.getElementsByClassName("select-contact")[0];
+   
+   const setOptions = async select => {
+      list_users = await getUsers();
+      list_users.forEach(e => {
+         const myOption = document.createElement("option");
+         myOption.value = e;
+         myOption.innerText = e;
+         select.appendChild(myOption);
+      });
+   };
+   setOptions(selectUsername);
+   setOptions(selectContact);
+
+   const sendData = async data => {
+      try {
+         const res = await fetch(addContactsURL, {
+            method: 'POST',
+            headers: {
+               'X-CSRFToken': csrf_token
+            },
+            credentials: 'include',
+            body: data
+         });
+         if(res.status !== 200) {
+            if(res.status === 400) {
+               const response = await res.json();
+               alert(response.body);
+            }
+            throw new Error(res.statusText);
+         }
+         const response = await res.json();
+         const usersPage = response.body;
+         window.location.href = usersPage;
+      } catch (error) {
+         console.error(error);
+      }
+   };
+
+   myForm.addEventListener("submit", e => {
+      e.preventDefault();
+
+      const myFormData = new FormData(myForm);
+      sendData(myFormData);
+   });
 
    divModal.appendChild(divHeader);
    divModal.appendChild(divBody);

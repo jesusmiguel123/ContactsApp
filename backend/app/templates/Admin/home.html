@@ -116,8 +116,11 @@
       </table>
    </div>
    <script>
-      const addUsersURL = "{{ url_for('admin.add_user') }}";
       const csrf_token  = "{{ csrf_token() }}";
+      const addUsersURL = "{{ url_for('admin.add_user') }}";
+      const addContactsURL = "{{ url_for('admin.add_contact') }}";
+      const getUsersURL = "{{ url_for('admin.get_users') }}";
+      const addAdminsURL = "{{ url_for('admin.add_admin') }}";
    </script>
    <script src="{{ url_for('static', filename='js/add-users.js') }}"></script>
    <script src="{{ url_for('static', filename='js/add-profiles.js') }}"></script>
