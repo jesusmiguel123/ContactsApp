@@ -9,3 +9,5 @@ RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
 COPY requirements.txt $APP_HOME
 RUN pip install -r requirements.txt
+# COPY . $APP_HOME
+# ENTRYPOINT sh ./deploy/app.sh

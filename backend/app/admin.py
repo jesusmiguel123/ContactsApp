@@ -159,7 +159,44 @@ def add_profile():
    except Exception as e:
       print(e)
       return jsonify({
-         "body": f"Server error!"
+         "body": "Server error!"
+      }), 400
+
+@bp.delete("/delete-profile")
+@login_required
+def delete_profile():
+   try:
+      username = request.args.get("username")
+      if username == None:
+         return jsonify({
+            "body": "Username missed!"
+         }), 400
+      profile = Profile.query.filter(Profile.username == username).first()
+      if profile == None:
+         return jsonify({
+            "body": f"Profile with username {username} not found!"
+         }), 400
+      
+      contacts = Contact.query.filter(Contact.username == username).all()
+      for contact in contacts:
+         db_session.delete(contact)
+      contactsOf = Contact.query.filter(Contact.contact_username == username).all()
+      for contact in contactsOf:
+         db_session.delete(contact)
+      db_session.commit()
+      
+      db_session.delete(profile)
+      
+      user = User.query.filter(User.username == username).first()
+      db_session.delete(user)
+      db_session.commit()
+      return jsonify({
+         "body": "Profile deleted successfully!"
+      })
+   except Exception as e:
+      print(e)
+      return jsonify({
+         "body": "Server error!"
       }), 400
 
 @bp.get("/contacts")
@@ -169,6 +206,7 @@ def contacts():
    contacts_list = []
    for contact in contacts:
       contacts_list.append({
+         "id": contact.id,
          "user": contact.username,
          "contact": contact.contact_username
       })
@@ -217,7 +255,32 @@ def add_contact():
    except Exception as e:
       print(e)
       return jsonify({
-         "body": f"Server error!"
+         "body": "Server error!"
+      }), 400
+
+@bp.delete("/delete-contact")
+@login_required
+def delete_contact():
+   try:
+      id = request.args.get("id")
+      if id == None:
+         return jsonify({
+            "body": "ID missed!"
+         }), 400
+      contact = Contact.query.filter(Contact.id == id).first()
+      if contact == None:
+         return jsonify({
+            "body": f"Contact with ID {id} not found!"
+         }), 400
+      db_session.delete(contact)
+      db_session.commit()
+      return jsonify({
+         "body": "Contact deleted successfully!"
+      })
+   except Exception as e:
+      print(e)
+      return jsonify({
+         "body": "Server error!"
       }), 400
 
 @bp.get("/admins")
@@ -227,6 +290,7 @@ def admins():
    admins_list = []
    for admin in admins:
       admins_list.append({
+         "id": admin.id,
          "username": admin.username
       })
    return render_template(
@@ -263,7 +327,32 @@ def add_admin():
    except Exception as e:
       print(e)
       return jsonify({
-         "body": f"Server error!"
+         "body": "Server error!"
+      }), 400
+
+@bp.delete("/delete-admin")
+@login_required
+def delete_admin():
+   try:
+      id = request.args.get("id")
+      if id == None:
+         return jsonify({
+            "body": "ID missed!"
+         }), 400
+      admin = Admin.query.filter(Admin.id == id).first()
+      if admin == None:
+         return jsonify({
+            "body": f"Admin with ID {id} not found!"
+         }), 400
+      db_session.delete(admin)
+      db_session.commit()
+      return jsonify({
+         "body": "Admin deleted successfully!"
+      })
+   except Exception as e:
+      print(e)
+      return jsonify({
+         "body": "Server error!"
       }), 400
 
 @command("initial-admin")

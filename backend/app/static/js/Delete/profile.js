@@ -1,6 +1,6 @@
-const deleteContact = async id => {
+const deleteProfile = async username => {
    try {
-      const res = await fetch(`${deleteContactURL}?id=${id}`, {
+      const res = await fetch(`${deleteProfileURL}?username=${username}`, {
          method: 'DELETE',
          headers: {
             'X-CSRFToken': csrf_token
@@ -19,6 +19,6 @@ const deleteContact = async id => {
    }
 };
 
-const deleteContactClick = id => {
-   deleteContact(id);
+const deleteProfileClick = username => {
+   deleteProfile(username);
 };

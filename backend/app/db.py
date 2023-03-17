@@ -6,6 +6,8 @@ from click import command, echo
 
 from dotenv import load_dotenv
 import os
+import socket
+import time
 
 load_dotenv("../.env")
 
@@ -28,6 +30,16 @@ def init_db():
    from . import models
    Base.metadata.create_all(bind=engine, checkfirst=True)
 
+def check_db():
+   while True:
+      sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+      result = sock.connect_ex((POSTGRES_HOST, int(POSTGRES_PORT)))
+      if result == 0:
+         return "Database connected!"
+      else:
+         echo("Database is not connected yet...")
+         time.sleep(3)
+
 def close_db(exceptions=None):
    db_session.remove()
 
@@ -37,9 +49,16 @@ def init_db_command():
    init_db()
    echo("Initialized the database.")
 
+@command("check-db")
+def check_db_command():
+   """Check database connection."""
+   echo("Database connecting...")
+   echo(check_db())
+
 def init_app(app):
    """Register database functions with the Flask app. This is called by
    the application factory.
    """
    app.teardown_appcontext(close_db)
    app.cli.add_command(init_db_command)
+   app.cli.add_command(check_db_command)
