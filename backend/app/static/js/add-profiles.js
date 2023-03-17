@@ -73,11 +73,78 @@ addProfiles.onclick = () => {
       <div class="photo">
          <p>Profile Photo:</p>
          <input
+            id="file"
             type="file"
-            accept=".jpg, .png, .jpeg" />
+            accept=".jpg, .png, .jpeg"
+            required/>
       </div>
       <button type="submit" class="send-button">Save</button>
    </form>`;
+   const myForm = divBody.getElementsByClassName("add-profiles-form")[0];
+   
+   const sendData = async data => {
+      try {
+         const res = await fetch(addProfilesURL, {
+            method: 'POST',
+            headers: {
+               'X-CSRFToken': csrf_token
+            },
+            credentials: 'include',
+            body: data
+         });
+         if(res.status !== 200) {
+            if(res.status === 400) {
+               const response = await res.json();
+               alert(response.body);
+            }
+            throw new Error(res.statusText);
+         }
+         const response = await res.json();
+         const usersPage = response.body;
+         window.location.href = usersPage;
+      } catch (error) {
+         console.error(error);
+      }
+   };
+   
+   myForm.addEventListener("submit", e => {
+      e.preventDefault();
+
+      const myFormData = new FormData(myForm);
+      
+      const name = myFormData.get("name");
+      const lastname = myFormData.get("lastname");
+      const username = myFormData.get("username");
+      const password = myFormData.get("password");
+      const email = myFormData.get("email");
+      
+      const file = document.getElementById("file").files[0];
+      const ext = file.name.split(".", 2)[1];
+      const newFileName = `${username}_profile_photo.${ext}`;
+      const newFile = new File([file], newFileName, {type: file.type});
+      myFormData.append("file", newFile);
+
+      if(!name.trim()
+         || !lastname.trim()
+         || !username.trim()
+         || !password.trim()
+         || !email.trim()){
+         alert("Void fields");
+         return;
+      } else if(!/^[a-zA-Z]+(\s+[a-zA-Z]+){0,5}$/.test(name.trim())
+               || !/^[a-zA-Z]+(\s+[a-zA-Z]+){0,5}$/.test(lastname.trim())) {
+         alert("You can't write accent marks");
+         return;
+      } else if(password.length < 8){
+         alert("Password must be more larger than 7 characters");
+         return;
+      } else if(!["jpg", "jpeg", "png"].includes(ext)){
+         alert("File must be .png, .jpg or .jpeg");
+         return;
+      } else {
+         sendData(myFormData);
+      }
+   });
 
    divModal.appendChild(divHeader);
    divModal.appendChild(divBody);

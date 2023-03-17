@@ -101,7 +101,20 @@ addContacts.onclick = () => {
       e.preventDefault();
 
       const myFormData = new FormData(myForm);
-      sendData(myFormData);
+
+      const username = myFormData.get("username");
+      const contact = myFormData.get("contact");
+
+      if(!username.trim()
+         || !contact.trim()){
+         alert("Void fields");
+         return;
+      } else if(username == contact){
+         alert("You can't connect a user with itself!");
+         return;
+      } else {
+         sendData(myFormData);
+      }
    });
 
    divModal.appendChild(divHeader);

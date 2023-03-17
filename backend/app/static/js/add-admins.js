@@ -78,7 +78,20 @@ addAdmins.onclick = () => {
       e.preventDefault();
 
       const myFormData = new FormData(myForm);
-      sendData(myFormData);
+
+      const username = myFormData.get("username");
+      const password = myFormData.get("password");
+
+      if(!username.trim()
+         || !password.trim()){
+         alert("Void fields");
+         return;
+      } else if(password.length < 8){
+         alert("Password must be more larger than 7 characters");
+         return;
+      } else {
+         sendData(myFormData);
+      }
    });
 
    divModal.appendChild(divHeader);

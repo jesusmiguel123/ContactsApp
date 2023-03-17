@@ -21,6 +21,10 @@ from werkzeug.security import (
    generate_password_hash,
    check_password_hash
 )
+from werkzeug.utils import secure_filename
+
+import os
+from pathlib import Path
 
 from .db import db_session
 from .models import (
@@ -29,6 +33,8 @@ from .models import (
    Profile,
    Contact
 )
+
+BASE_DIR = Path(__file__).resolve().parent
 
 bp = Blueprint("admin", __name__, url_prefix="/admin")
 
@@ -65,46 +71,6 @@ def logout():
 def admin_home():
    return render_template("Admin/home.html")
 
-@bp.get("/users")
-@login_required
-def users():
-   users = User.query.order_by(User.username).all()
-   users_list = []
-   for user in users:
-      users_list.append({
-         "username": user.username
-      })
-   return render_template(
-      "Admin/users.html",
-      users=users_list
-   )
-
-@bp.post("/add-user")
-@login_required
-def add_user():
-   try:
-      username = request.form.get("username")
-      password = request.form.get("password")
-      if User.query.filter(User.username == username).first() != None:
-         return jsonify({
-            "body": f"Username {username} already exists!"
-         }), 400
-      password_hashed = generate_password_hash(password)
-      new_user = User(username, password_hashed)
-      new_profile = Profile("name", "lastname", username, "email", "profile_image_url")
-      db_session.add(new_user)
-      db_session.commit()
-      db_session.add(new_profile)
-      db_session.commit()
-      return jsonify({
-         "body": url_for('admin.users')
-      })
-   except Exception as e:
-      print(e)
-      return jsonify({
-         "body": f"Server error!"
-      }), 400
-
 @bp.get("/get-users")
 @login_required
 def get_users():
@@ -134,6 +100,68 @@ def profiles():
       profiles=profiles_list
    )
 
+@bp.post("/add-profile")
+@login_required
+def add_profile():
+   try:
+      name = request.form.get("name")
+      lastname = request.form.get("lastname")
+      username = request.form.get("username")
+      password = request.form.get("password")
+      email = request.form.get("email")
+      if "file" not in request.files:
+         return jsonify({
+            "body": "No file part"
+         }), 400
+      file = request.files["file"]
+      if not (name.strip() 
+              and lastname.strip()
+              and username.strip()
+              and password.strip()
+              and email.strip()):
+         return jsonify({
+            "body": "Void fields"
+         }), 400
+      if len(password) < 8:
+         return jsonify({
+            "body": "Password lenght < 8!"
+         }), 400
+      if (file.filename.rsplit(".", 1)[1].lower() not in {"jpg", "jpeg", "png"}
+          or "." not in file.filename):
+         return jsonify({
+            "body": "File type not supported!"
+         }), 400
+      user = User.query.filter(User.username == username).first()
+      if user != None:
+         return jsonify({
+            "body": f"Username {username} already exists!"
+         }), 400
+      profile = Profile.query.filter(Profile.email == email).first()
+      if profile != None:
+         return jsonify({
+            "body": f"Email {email} already exists!"
+         }), 400
+      file_bytes = file.read()
+      filename = secure_filename(file.filename)
+      with open(BASE_DIR / "static/img" / filename, "wb") as f:
+         f.write(file_bytes)
+      profile_image_url = f"static/img/{file.filename}"
+      password_hashed = generate_password_hash(password)
+      new_user = User(username, password_hashed)
+      new_profile = Profile(name, lastname, username, email, profile_image_url)
+      db_session.add(new_user)
+      db_session.commit()
+      db_session.add(new_profile)
+      db_session.commit()
+      return jsonify({
+         "body": url_for('admin.profiles')
+      })
+   except Exception as e:
+      print(e)
+      return jsonify({
+         "body": f"Server error!"
+      }), 400
+
 @bp.get("/contacts")
 @login_required
 def contacts():
@@ -155,6 +183,11 @@ def add_contact():
    try:
       username = request.form.get("username")
       contact = request.form.get("contact")
+      if not (username.strip()
+              and contact.strip()):
+         return jsonify({
+            "body": "Void fields"
+         }), 400
       if username == contact:
          return jsonify({
             "body": "You can't connect a user with itself!"
@@ -207,6 +240,15 @@ def add_admin():
    try:
       username = request.form.get("username")
       password = request.form.get("password")
+      if not (username.strip()
+              and password.strip()):
+         return jsonify({
+            "body": "Void fields"
+         }), 400
+      if len(password) < 8:
+         return jsonify({
+            "body": "Password lenght < 8!"
+         }), 400
       if Admin.query.filter(Admin.username == username).first() != None:
          return jsonify({
             "body": f"Username {username} already exists!"
