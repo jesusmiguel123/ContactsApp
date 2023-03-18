@@ -20,11 +20,9 @@ const Contacts = ({ user }) => {
       try {
          const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/get-contacts/${user}`);
          if(!res.ok) {
-            if(res.status === 400) {
-               const response = await res.json();
-               console.log(response.body);
-            }
-            throw new Error(res.statusText);
+            const response = await res.json();
+            console.log(response.body);
+            return;
          }
          const contacts = await res.json();
          setContacts(contacts["contacts"]);
@@ -36,7 +34,7 @@ const Contacts = ({ user }) => {
    const [showModalAddContact, setShowModalAddContact] = useState(false);
    const addContact = () => {
       setShowModalAddContact(true);
-    };
+   };
    const closeModalAddContact = () => {
       setShowModalAddContact(false);
    };
@@ -48,7 +46,7 @@ const Contacts = ({ user }) => {
       setContact(name);
       setShowModalContact(true);
       navigate(`contact/${name}`);
-    };
+   };
    const closeModalContact = () => {
       setShowModalContact(false);
    };

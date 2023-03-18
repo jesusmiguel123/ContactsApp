@@ -37,12 +37,9 @@ export const AuthProvider = ({ children }) => {
             credentials: 'include',
             body: JSON.stringify(data)
          });
-         if(res.status !== 200) {
-            if(res.status === 400) {
-               const response = await res.json();
-               return [response.body, 400];
-            }
-            throw new Error(res.statusText);
+         if(!res.ok) {
+            const response = await res.json();
+            return [response.body, 400];
          }
          const response = await res.json();
          return [response.body, 200];
@@ -62,6 +59,7 @@ export const AuthProvider = ({ children }) => {
          const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/logout/${getUser()}`);
          if(!res.ok) {
             console.log(res);
+            return;
          }
          const data = await res.json();
          console.log(data.body);

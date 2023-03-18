@@ -18,6 +18,7 @@ const Profile = ({ user }) => {
          const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/profile/${user}`);
          if(!res.ok) {
             console.log(res);
+            return;
          }
          const data = await res.json();
          setData(data.body);
@@ -31,6 +32,7 @@ const Profile = ({ user }) => {
          const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/profile/photo/${user}`);
          if(!res.ok) {
             console.log(res);
+            return;
          }
          const photo = await res.blob();
 

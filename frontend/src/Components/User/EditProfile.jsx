@@ -96,20 +96,18 @@ const EditProfile = ({ user, name, lastname, email, photo }) => {
             dataToSend.append(key, data[key]);
          }
          const res = await fetch(`${REACT_APP_API_URL}/api/v1/edit-profile/${user}`, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                'X-CSRFToken': CSRFToken
             },
             credentials: 'include',
             body: dataToSend
          });
-         if(res.status !== 200) {
-            if(res.status === 400) {
-               const response = await res.json();
-               setMessageRender(<div className='error'>{errorIcon} {response.body}</div>);
-               setMessage(true);
-            }
-            throw new Error(res.statusText);
+         if(!res.ok) {
+            const response = await res.json();
+            setMessageRender(<div className='error'>{errorIcon} {response.body}</div>);
+            setMessage(true);
+            return;
          }
          const response = await res.json();
          setMessageRender(<div className='success'>{successIcon} {response.body}</div>);

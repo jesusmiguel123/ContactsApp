@@ -20,13 +20,11 @@ const AddContact = ({ user }) => {
       try {
          const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/profiles/${user}`);
          if(!res.ok) {
-            if(res.status === 400) {
-               const response = await res.json();
-               setMessageRender(<div className='error'>{errorIcon} {response.body}</div>);
-               setMessage(true);
-               setExistUsers(false);
-            }
-            throw new Error(res.statusText);
+            const response = await res.json();
+            setMessageRender(<div className='error'>{errorIcon} {response.body}</div>);
+            setMessage(true);
+            setExistUsers(false);
+            return;
          }
          const data = await res.json();
          setData(data["usernames"]);
@@ -79,13 +77,11 @@ const AddContact = ({ user }) => {
             credentials: 'include',
             body: dataToSend
          });
-         if(res.status !== 200) {
-            if(res.status === 400) {
-               const response = await res.json();
-               setMessageRender(<div className='error'>{errorIcon} {response.body}</div>);
-               setMessage(true);
-            }
-            throw new Error(res.statusText);
+         if(!res.ok) {
+            const response = await res.json();
+            setMessageRender(<div className='error'>{errorIcon} {response.body}</div>);
+            setMessage(true);
+            return;
          }
          const newData = [...data];
          newData.splice(

@@ -3,6 +3,7 @@ const getUsers = async () => {
       const res = await fetch(getUsersURL);
       if(!res.ok) {
          console.log(res);
+         return;
       }
       const data = await res.json();
       return data.users;

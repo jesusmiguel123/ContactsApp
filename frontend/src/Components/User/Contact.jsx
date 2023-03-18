@@ -1,6 +1,7 @@
 import '../../Styles/User/Contact.css';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import getCSRFToken from '../../utils/getCSRFToken';
 
 const Contact = ({ user }) => {
    const { username } = useParams();
@@ -13,11 +14,12 @@ const Contact = ({ user }) => {
       loadPhoto(username);
    }, [username]);
 
-   const loadData = async (username) => {
+   const loadData = async username => {
       try {
          const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/profile/${username}`);
          if(!res.ok) {
             console.log(res);
+            return;
          }
          const data = await res.json();
          setData(data.body);
@@ -26,11 +28,12 @@ const Contact = ({ user }) => {
       }
    };
 
-   const loadPhoto = async (username) => {
+   const loadPhoto = async username => {
       try {
          const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/profile/photo/${username}`);
          if(!res.ok) {
             console.log(res);
+            return;
          }
          const photo = await res.blob();
          const src = URL.createObjectURL(photo);
@@ -48,14 +51,19 @@ const Contact = ({ user }) => {
 
    const deleteContact  = async () => {
       try {
-         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/delete-contact/${user}/${username}`);
-         if(res.status !== 200) {
-            if(res.status === 400) {
-               const response = await res.json();
-               setMessageRender(<div className='error'>{errorIcon} {response.body}</div>);
-               setMessage(true);
-            }
-            throw new Error(res.statusText);
+         const CSRFToken = await getCSRFToken();
+         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/delete-contact/${user}/${username}`, {
+            method: 'DELETE',
+            headers: {
+               'X-CSRFToken': CSRFToken
+            },
+            credentials: 'include'
+         });
+         if(!res.ok) {
+            const response = await res.json();
+            setMessageRender(<div className='error'>{errorIcon} {response.body}</div>);
+            setMessage(true);
+            return;
          }
          const response = await res.json();
          setMessageRender(<div className='success'>{successIcon} {response.body}</div>);

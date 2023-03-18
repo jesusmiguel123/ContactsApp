@@ -201,7 +201,7 @@ def profile_photo(username):
          "body": "Server error"
       }), 400
 
-@bp.post("/edit-profile/<username>")
+@bp.put("/edit-profile/<username>")
 @login_required
 @check_user
 def edit_profile(username):
@@ -420,7 +420,7 @@ def add_contact(username):
          "body": "Server error"
       }), 400
 
-@bp.get("/delete-contact/<username>/<contact_username>")
+@bp.delete("/delete-contact/<username>/<contact_username>")
 @login_required
 @check_user
 def delete_contact(username, contact_username):

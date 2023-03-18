@@ -97,13 +97,11 @@ const Register = () => {
             credentials: 'include',
             body: dataToSend
          });
-         if(res.status !== 200) {
-            if(res.status === 400) {
-               const response = await res.json();
-               setMessageRender(<div className='error'>{errorIcon} {response.body}</div>);
-               setMessage(true);
-            }
-            throw new Error(res.statusText);
+         if(!res.ok) {
+            const response = await res.json();
+            setMessageRender(<div className='error'>{errorIcon} {response.body}</div>);
+            setMessage(true);
+            return;
          }
          const response = await res.json();
          setMessageRender(<div className='success'>{successIcon} {response.body}</div>);
