@@ -1,0 +1,45 @@
+version: '3.2'
+services:
+  db:
+    restart: always
+    image: postgres:15.2-alpine
+    environment:
+      - POSTGRES_USER=pguser
+      - POSTGRES_PASSWORD=asd123
+      - POSTGRES_DB=app
+    ports:
+      - 5432:5432
+    volumes:
+      - ./database:/var/lib/mysql
+
+  backend:
+    restart: always
+    build: ./backend
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/home/app
+  
+  frontend:
+    restart: always
+    build: ./frontend
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/home/app
+  
+  server:
+    restart: always
+    build: ./server
+    ports:
+      - 80:80
+    depends_on:
+      - frontend
+    volumes:
+      - ./backend/app/static:/static/backend
+      - ./frontend/build/static:/static/frontend
+      - ./frontend/build:/usr/share/nginx/html

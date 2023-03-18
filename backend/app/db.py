@@ -9,7 +9,7 @@ import os
 import socket
 import time
 
-load_dotenv("../.env")
+load_dotenv()
 
 POSTGRES_USER = os.getenv("POSTGRES_USER")
 POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
