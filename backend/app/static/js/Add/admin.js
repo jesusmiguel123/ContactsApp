@@ -1,5 +1,28 @@
 const addAdmins = document.getElementById("add-admins");
 
+const sendDataAdmin = async data => {
+   try {
+      const res = await fetch(addAdminsURL, {
+         method: 'POST',
+         headers: {
+            'X-CSRFToken': csrf_token
+         },
+         credentials: 'include',
+         body: data
+      });
+      if(!res.ok) {
+         const response = await res.json();
+         alert(response.body);
+         return;
+      }
+      const response = await res.json();
+      const usersPage = response.body;
+      window.location.href = usersPage;
+   } catch (error) {
+      console.error(error);
+   }
+};
+
 addAdmins.onclick = () => {
    const divBackground = document.createElement('div');
    divBackground.className = "background";
@@ -49,31 +72,6 @@ addAdmins.onclick = () => {
    </form>`;
    const myForm = divBody.getElementsByClassName("add-admins-form")[0];
    
-   const sendData = async data => {
-      try {
-         const res = await fetch(addAdminsURL, {
-            method: 'POST',
-            headers: {
-               'X-CSRFToken': csrf_token
-            },
-            credentials: 'include',
-            body: data
-         });
-         if(res.status !== 200) {
-            if(res.status === 400) {
-               const response = await res.json();
-               alert(response.body);
-            }
-            throw new Error(res.statusText);
-         }
-         const response = await res.json();
-         const usersPage = response.body;
-         window.location.href = usersPage;
-      } catch (error) {
-         console.error(error);
-      }
-   };
-   
    myForm.addEventListener("submit", e => {
       e.preventDefault();
 
@@ -90,7 +88,7 @@ addAdmins.onclick = () => {
          alert("Password must be more larger than 7 characters");
          return;
       } else {
-         sendData(myFormData);
+         sendDataAdmin(myFormData);
       }
    });
 

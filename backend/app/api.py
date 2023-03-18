@@ -219,7 +219,7 @@ def edit_profile(username):
       file = request.files["file"]
       if not (name.strip() 
               and lastname.strip()
-              and username.strip()
+              and newUsername.strip()
               and oldPassword.strip()
               and newPassword.strip()
               and email.strip()):
