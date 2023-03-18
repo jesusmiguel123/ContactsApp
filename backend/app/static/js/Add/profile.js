@@ -1,5 +1,28 @@
 const addProfiles = document.getElementById("add-profiles");
 
+const sendDataProfiles = async data => {
+   try {
+      const res = await fetch(addProfilesURL, {
+         method: 'POST',
+         headers: {
+            'X-CSRFToken': csrf_token
+         },
+         credentials: 'include',
+         body: data
+      });
+      if(!res.ok) {
+         const response = await res.json();
+         alert(response.body);
+         return;
+      }
+      const response = await res.json();
+      const usersPage = response.body;
+      window.location.href = usersPage;
+   } catch (error) {
+      console.error(error);
+   }
+};
+
 addProfiles.onclick = () => {
    const divBackground = document.createElement('div');
    divBackground.className = "background";
@@ -82,31 +105,6 @@ addProfiles.onclick = () => {
    </form>`;
    const myForm = divBody.getElementsByClassName("add-profiles-form")[0];
    
-   const sendData = async data => {
-      try {
-         const res = await fetch(addProfilesURL, {
-            method: 'POST',
-            headers: {
-               'X-CSRFToken': csrf_token
-            },
-            credentials: 'include',
-            body: data
-         });
-         if(res.status !== 200) {
-            if(res.status === 400) {
-               const response = await res.json();
-               alert(response.body);
-            }
-            throw new Error(res.statusText);
-         }
-         const response = await res.json();
-         const usersPage = response.body;
-         window.location.href = usersPage;
-      } catch (error) {
-         console.error(error);
-      }
-   };
-   
    myForm.addEventListener("submit", e => {
       e.preventDefault();
 
@@ -142,7 +140,7 @@ addProfiles.onclick = () => {
          alert("File must be .png, .jpg or .jpeg");
          return;
       } else {
-         sendData(myFormData);
+         sendDataProfiles(myFormData);
       }
    });
 
