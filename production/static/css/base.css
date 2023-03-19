@@ -1,0 +1,83 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html, body {
+  background-color: #282c34;
+  color: #DDD;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
+  font-weight: 500;
+  background-color: grey;
+  height: 20%;
+  vertical-align: middle;
+}
+
+header h1 {
+  text-align: center;
+  line-height: 150%;
+  width: 15%;
+}
+
+header nav {
+  width: 85%;
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+header nav ul li {
+  display: inline;
+  list-style-type: none;
+}
+
+header a {
+  text-decoration: none;
+  color: #DDD;
+  font-size: 25px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logout {
+  text-decoration: none;
+  color: #DDD;
+  font-size: 25px;
+  width: 8%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0px 10px 0px 10px;
+  padding: 0px 12px 0px 12px;
+}
+
+header nav ul li a {
+  margin: 0px 10px 0px 10px;
+}
+
+header nav ul li a:hover, .logout:hover {
+  background-color: rgb(4, 112, 148);
+}
+
+.logout {
+  cursor: pointer;
+}

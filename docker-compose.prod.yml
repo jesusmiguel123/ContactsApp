@@ -10,11 +10,13 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./database:/var/lib/mysql
+      - ./database:/var/lib/postgresql/data
 
   backend:
     restart: always
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
     ports:
       - 5000:5000
     depends_on:
@@ -22,24 +24,13 @@ services:
     volumes:
       - ./backend:/home/app
   
-  frontend:
-    restart: always
-    build: ./frontend
-    ports:
-      - 3000:3000
-    depends_on:
-      - backend
-    volumes:
-      - ./frontend:/home/app
-  
   server:
     restart: always
     build: ./server
     ports:
       - 80:80
     depends_on:
-      - frontend
+      - backend
     volumes:
-      - ./backend/app/static:/static/backend
-      - ./frontend/build/static:/static/frontend
-      - ./frontend/build:/usr/share/nginx/html
+      - ./production/static:/static
+      - ./production:/usr/share/nginx/html
