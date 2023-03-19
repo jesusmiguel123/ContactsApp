@@ -23,6 +23,7 @@ services:
       - db
     volumes:
       - ./backend:/home/app
+      - ./production/static/img:/home/app/app/static/img
   
   server:
     restart: always
