@@ -92,3 +92,7 @@ Then run the next command to start production mode:
 ```
 sh deploy.sh
 ```
+Application run on:
+```
+http://127.0.0.1/
+```
