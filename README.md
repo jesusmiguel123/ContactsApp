@@ -4,6 +4,7 @@ The Contacts App is an application where you can connect with other person. You 
 It provides an administration side on `/admin` route.
 
 This application was developed with:
+- `PostgreSQL`
 - `Flask`
 - `ReactJS`
 - `React-Router-DOM-v6`
