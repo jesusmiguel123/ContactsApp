@@ -1,7 +1,6 @@
 import './App.css';
 
-//import { Route, Routes, Link, Navigate, useNavigate } from 'react-router-dom';
-import { Route, Routes, Link, useNavigate } from 'react-router-dom';
+import { Route, Routes, Link, Navigate, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import Home from './Components/Home';
@@ -28,15 +27,13 @@ const App = () => {
     get_token();
   }, []);
 
-  /*
   const ProtectedRoute = ({ children }) => {
     const { isAuth } = useAuth();
-    if(!isAuth){
+    if(!isAuth && user === null){
       return <Navigate to="/login" />
     }
     return children;
   };
-  */
 
   const navigate = useNavigate();
   const { logout } = useAuth();
@@ -68,9 +65,9 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
-          <Route path="/user" element={<Profile user={user} />} />
+          <Route path="/user" element={<ProtectedRoute><Profile user={user} /></ProtectedRoute>} />
           <Route path="/user/my-contacts" element={<Contacts user={user} />}>
-            <Route path="contact/:username" element={<Contact user={user} />} />
+            <Route path="contact/:username" element={<ProtectedRoute><Contact user={user} /></ProtectedRoute>} />
           </Route>
       </Routes>
     </>

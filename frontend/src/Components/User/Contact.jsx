@@ -79,10 +79,10 @@ const Contact = ({ user }) => {
          <div className="data">
             {message && messageRender}
             <div>
-               <div><p>Name:</p> {data.name}</div>
-               <div><p>Lastname:</p> {data.lastname}</div>
+               <div><p>Name:</p>{data.name}</div>
+               <div><p>Lastname:</p>{data.lastname}</div>
             </div>
-            <div><p>Email:</p> {data.email}</div>
+            <div><p>Email:</p>{data.email}</div>
             <button className="delete-contact" onClick={deleteContact}>Delete</button>
          </div>
       </div>

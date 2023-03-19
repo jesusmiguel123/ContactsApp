@@ -2,7 +2,7 @@
    display: flex;
    align-items: flex-start;
    padding: 35px 28px 35px 28px;
-   font-size: 28px;
+   font-size: 27px;
 }
 
 .contact .image {
@@ -45,7 +45,7 @@
    flex-direction: row;
    align-items: center;
    justify-content: center;
-   padding: 10px;
+   padding: 5px;
 }
 
 .contact .data .delete-contact {
