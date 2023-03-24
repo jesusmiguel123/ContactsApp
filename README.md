@@ -34,6 +34,10 @@ docker run \
    -p 5432:5432 \
    postgres:15.2-alpine
 ```
+#### Connect to database
+```
+docker exec -it db psql -U pguser -d app
+```
 ### Backend
 #### Building Docker image in `backend/`
 ```
