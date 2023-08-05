@@ -1,4 +1,5 @@
 # Contacts App
+
 The Contacts App is an application where you can connect with other person. You can register an upload an profile photo.
 
 It provides an administration side on `/admin` route.
