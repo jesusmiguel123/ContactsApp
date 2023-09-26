@@ -2,6 +2,8 @@ import '../../Styles/User/AddContact.css';
 import { useEffect, useState } from 'react';
 import getCSRFToken from '../../utils/getCSRFToken';
 
+const VITE_API_URL = import.meta.env.VITE_API_URL;
+
 const AddContact = ({ user }) => {
    const [searchContact, setSearchContact] = useState("");
    const [searchShow, setSearchShow] = useState(false);
@@ -18,7 +20,7 @@ const AddContact = ({ user }) => {
 
    const loadData = async () => {
       try {
-         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/profiles/${user}`);
+         const res = await fetch(`${VITE_API_URL}/api/v1/profiles/${user}`);
          if(!res.ok) {
             const response = await res.json();
             setMessageRender(<div className='error'>{errorIcon} {response.body}</div>);
@@ -69,7 +71,7 @@ const AddContact = ({ user }) => {
          const CSRFToken = await getCSRFToken();
          const dataToSend = new FormData();
          dataToSend.append("contact", username);
-         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/add-contact/${user}`, {
+         const res = await fetch(`${VITE_API_URL}/api/v1/add-contact/${user}`, {
             method: 'POST',
             headers: {
                'X-CSRFToken': CSRFToken

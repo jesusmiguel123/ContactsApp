@@ -2,6 +2,8 @@ import '../../Styles/User/EditProfile.css';
 import { useState } from 'react';
 import getCSRFToken from '../../utils/getCSRFToken';
 
+const VITE_API_URL = import.meta.env.VITE_API_URL;
+
 const EditProfile = ({ user, name, lastname, email, photo }) => {
    const photoBlob = URL.getFromObjectURL(photo);
    const ext = photoBlob.type.split("/", 2)[1];
@@ -87,7 +89,6 @@ const EditProfile = ({ user, name, lastname, email, photo }) => {
       }
    };
 
-   const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
    const sendData = async data => {
       try {
          const CSRFToken = await getCSRFToken();
@@ -95,7 +96,7 @@ const EditProfile = ({ user, name, lastname, email, photo }) => {
          for (const key in data){
             dataToSend.append(key, data[key]);
          }
-         const res = await fetch(`${REACT_APP_API_URL}/api/v1/edit-profile/${user}`, {
+         const res = await fetch(`${VITE_API_URL}/api/v1/edit-profile/${user}`, {
             method: 'PUT',
             headers: {
                'X-CSRFToken': CSRFToken

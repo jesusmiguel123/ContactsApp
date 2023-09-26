@@ -5,6 +5,8 @@ import { useNavigate, Outlet } from 'react-router-dom';
 import Modal from './Modal';
 import AddContact from './AddContact';
 
+const VITE_API_URL = import.meta.env.VITE_API_URL;
+
 const Contacts = ({ user }) => {
    const [contacts, setContacts] = useState([
       {
@@ -18,7 +20,7 @@ const Contacts = ({ user }) => {
 
    const loadContacts = async (user) => {
       try {
-         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/get-contacts/${user}`);
+         const res = await fetch(`${VITE_API_URL}/api/v1/get-contacts/${user}`);
          if(!res.ok) {
             const response = await res.json();
             console.log(response.body);

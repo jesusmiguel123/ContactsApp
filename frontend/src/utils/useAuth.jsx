@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from 'react';
 import useLocalStorage from './useLocalStorage';
 import getCSRFToken from './getCSRFToken';
 
+const VITE_API_URL = import.meta.env.VITE_API_URL;
 const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -25,11 +26,10 @@ export const AuthProvider = ({ children }) => {
       return response;
    }
 
-   const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
    const sendData = async data => {
       try {
          const CSRFToken = await getCSRFToken();
-         const res = await fetch(`${REACT_APP_API_URL}/api/v1/login`, {
+         const res = await fetch(`${VITE_API_URL}/api/v1/login`, {
             method: 'POST',
             headers: {
                'X-CSRFToken': CSRFToken
@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }) => {
 
    const logout_user  = async () => {
       try {
-         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/logout/${getUser()}`);
+         const res = await fetch(`${VITE_API_URL}/api/v1/logout/${getUser()}`);
          if(!res.ok) {
             console.log(res);
             return;

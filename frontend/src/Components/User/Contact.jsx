@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import getCSRFToken from '../../utils/getCSRFToken';
 
+const VITE_API_URL = import.meta.env.VITE_API_URL;
+
 const Contact = ({ user }) => {
    const { username } = useParams();
 
@@ -16,7 +18,7 @@ const Contact = ({ user }) => {
 
    const loadData = async username => {
       try {
-         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/profile/${username}`);
+         const res = await fetch(`${VITE_API_URL}/api/v1/profile/${username}`);
          if(!res.ok) {
             console.log(res);
             return;
@@ -30,7 +32,7 @@ const Contact = ({ user }) => {
 
    const loadPhoto = async username => {
       try {
-         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/profile/photo/${username}`);
+         const res = await fetch(`${VITE_API_URL}/api/v1/profile/photo/${username}`);
          if(!res.ok) {
             console.log(res);
             return;
@@ -52,7 +54,7 @@ const Contact = ({ user }) => {
    const deleteContact  = async () => {
       try {
          const CSRFToken = await getCSRFToken();
-         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/delete-contact/${user}/${username}`, {
+         const res = await fetch(`${VITE_API_URL}/api/v1/delete-contact/${user}/${username}`, {
             method: 'DELETE',
             headers: {
                'X-CSRFToken': CSRFToken

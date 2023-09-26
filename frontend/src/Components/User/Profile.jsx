@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import Modal from './Modal';
 import EditProfile from './EditProfile';
 
+const VITE_API_URL = import.meta.env.VITE_API_URL;
+
 const Profile = ({ user }) => {
    const [data, setData] = useState({});
    const [photo, setPhoto] = useState();
@@ -15,7 +17,7 @@ const Profile = ({ user }) => {
 
    const loadData = async (user) => {
       try {
-         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/profile/${user}`);
+         const res = await fetch(`${VITE_API_URL}/api/v1/profile/${user}`);
          if(!res.ok) {
             console.log(res);
             return;
@@ -29,7 +31,7 @@ const Profile = ({ user }) => {
 
    const loadPhoto = async (user) => {
       try {
-         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/profile/photo/${user}`);
+         const res = await fetch(`${VITE_API_URL}/api/v1/profile/photo/${user}`);
          if(!res.ok) {
             console.log(res);
             return;

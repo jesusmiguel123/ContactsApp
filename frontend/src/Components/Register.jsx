@@ -2,6 +2,8 @@ import '../Styles/Register.css';
 import { useState } from 'react';
 import getCSRFToken from '../utils/getCSRFToken';
 
+const VITE_API_URL = import.meta.env.VITE_API_URL;
+
 const Register = () => {
    const [data, setData] = useState({
       name: '',
@@ -81,7 +83,7 @@ const Register = () => {
       }
    };
 
-   const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
+   
    const sendData = async data => {
       try {
          const CSRFToken = await getCSRFToken();
@@ -89,7 +91,7 @@ const Register = () => {
          for (const key in data){
             dataToSend.append(key, data[key]);
          }
-         const res = await fetch(`${REACT_APP_API_URL}/api/v1/register`, {
+         const res = await fetch(`${VITE_API_URL}/api/v1/register`, {
             method: 'POST',
             headers: {
                'X-CSRFToken': CSRFToken

@@ -1,4 +1,4 @@
-const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
+const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 const getCookie = name => {
    let cookieValue = null;
@@ -21,7 +21,7 @@ const getCSRFtoken = async () => {
    if(token != null) {
       return token;
    }
-   const res = await fetch(`${REACT_APP_API_URL}/api/v1/get_csrf_token`, {
+   const res = await fetch(`${VITE_API_URL}/api/v1/get_csrf_token`, {
       credentials: 'include'
    });
    return res.headers.get(["X-CSRFToken"]);

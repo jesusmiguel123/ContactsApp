@@ -7,6 +7,7 @@ It provides an administration side on `/admin` route.
 This application was developed with:
 - `PostgreSQL`
 - `Flask`
+- `Vite`
 - `ReactJS`
 - `React-Router-DOM-v6`
 - `Docker`
@@ -70,7 +71,7 @@ docker run \
    --name front \
    -v /home/app/node_modules \
    -v $PWD/frontend:/home/app \
-   -p 3000:3000 \
+   -p 5173:5173 \
    -it \
    front
 ```
@@ -88,11 +89,11 @@ docker compose -f docker-compose.dev.yml up
 ### Production
 First you need to have the `build` directory in `/frontend`. You can do it with the next command if you developed locally:
 ```
-npm run build
+pnpm run build
 ```
 If you developed in the docker container exec:
 ```
-docker exec -it front npm run build
+docker exec -it front pnpm run build
 ```
 Then run the next command to start production mode:
 ```
