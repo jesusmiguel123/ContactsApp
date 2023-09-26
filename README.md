@@ -68,6 +68,7 @@ docker run \
    --network back-front-db \
    --hostname front \
    --name front \
+   -v /home/app/node_modules \
    -v $PWD/frontend:/home/app \
    -p 3000:3000 \
    -it \
