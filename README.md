@@ -34,7 +34,7 @@ docker run \
    -e POSTGRES_DB=app \
    -v $PWD/database:/var/lib/postgresql/data \
    -p 5432:5432 \
-   postgres:15.2-alpine
+   postgres:16.0-alpine
 ```
 #### Connect to database
 ```
