@@ -14,4 +14,4 @@ RUN chmod 777 node_modules
 ENV PATH="/home/app/node_modules/.bin:$PATH"
 
 COPY . $APP_HOME
-CMD npx vite --host
+CMD pnpm run dev
