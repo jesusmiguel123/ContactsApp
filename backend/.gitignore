@@ -1,4 +1,4 @@
-**app**
+app/**env**
 **__pycache__**
 app/static/img/*
 venv/
